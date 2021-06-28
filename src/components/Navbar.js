@@ -4,19 +4,21 @@ import { useStaticQuery, graphql, Link } from 'gatsby'
 
 const Navbar = () => {
     const data = useStaticQuery(graphql`
-    query LogoImageQuery {
-        imageSharp(id: {eq: "818a5c3e-08cc-5637-b246-168984cdfcd4"}) {
-          id
-          fluid {
-            src
-          }
+        query LogoImageQuery {
+            file(relativePath: {eq: "header-logo.png"}) {
+            id
+            childImageSharp {
+                fluid {
+                src
+                }
+            }
+            }
         }
-      }
     `)
 
     return (
         <Nav>
-            <Link><Logo src={data.imageSharp.fluid.src} width="197" height="50" /></Link>
+            <Link><Logo src={data.file.childImageSharp.fluid.src} width="197" height="50" /></Link>
             <NavLinks>
                 <li><NavLink to="/">home</NavLink></li>
                 <li><NavLink to="/about">about</NavLink></li>

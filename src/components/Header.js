@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { keyframes } from 'styled-components'
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go'
+import { Carousel } from 'react-responsive-carousel';
 
 import { graphql, useStaticQuery } from 'gatsby'
 import { getImage } from 'gatsby-plugin-image'
@@ -9,34 +10,53 @@ import { getImage } from 'gatsby-plugin-image'
 import { BgImage } from 'gbimage-bridge'
 
 const Header = () => {
-  const { backgroundImage } = useStaticQuery(graphql`
+  const { backgroundImages } = useStaticQuery(graphql`
       query BackgroundImageQuery {
-        backgroundImage: file(childImageSharp: {}, relativePath: {eq: "background1.jpg"}) {
-          childImageSharp {
-            gatsbyImageData(
-              width: 2000,
-              quality: 50,
-              webpOptions: {quality: 70}
-            )
+        backgroundImages: allFile(filter: {relativePath: {regex: "/header-background/"}}) {
+          nodes {
+            childImageSharp {
+              gatsbyImageData
+            }
           }
         }
       }
     `)
 
-  const pluginImage = getImage(backgroundImage)
+  const pluginImages = backgroundImages.nodes
+  console.log(pluginImages)
  
   return (
-    <Heading image={pluginImage}>
-      <Title>
-        <Show>
-          <h1>we build the future</h1>
-          <h2>best ideas - best solution - best result</h2>
-          <button>view more</button>
-        </Show>
-      </Title>
-      <Arrow left><GoChevronLeft /></Arrow>
-      <Arrow><GoChevronRight /></Arrow> 
-    </Heading>
+    <Carousel
+      infiniteLoop
+      emulateTouch
+      showStatus={false}
+      renderArrowPrev={(onClickHandler, hasPrev) =>
+          hasPrev && (
+              <Arrow left onClick={onClickHandler}>
+                  <GoChevronLeft />
+              </Arrow>
+          )
+      }
+      renderArrowNext={(onClickHandler, hasNext) =>
+          hasNext && (
+            <Arrow onClick={onClickHandler}><GoChevronRight/></Arrow>
+          )
+      }
+    >
+      {pluginImages.map((pluginImage) => (
+        <Heading image={getImage(pluginImage)}>
+          <Title>
+            <Show>
+              <h1>we build the future</h1>
+              <h2>best ideas - best solution - best result</h2>
+              <button>view more</button>
+            </Show>
+          </Title>
+        </Heading>
+      ))}
+      
+    </Carousel>
+    
   )
 }
 
@@ -80,7 +100,7 @@ const Title = styled.div`
     color: #fff;
     border-radius: 5px;
     transition: 0.2s all ease-in-out;
-    text-transform: capitalize;
+    text-transform: uppercase;
   }
 
   button:hover {
