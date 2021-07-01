@@ -10,55 +10,64 @@ import { getImage } from 'gatsby-plugin-image'
 import { BgImage } from 'gbimage-bridge'
 
 const Header = () => {
-  const { backgroundImages } = useStaticQuery(graphql`
-      query BackgroundImageQuery {
-        backgroundImages: allFile(filter: {relativePath: {regex: "/header-background/"}}) {
-          nodes {
-            childImageSharp {
-              gatsbyImageData
-            }
+  const { backgroundImages, titles } = useStaticQuery(graphql`
+    query BackgroundImageQuery {
+      backgroundImages: allFile(
+        filter: {relativePath: {regex: "/header-background/"}}
+      ) {
+        nodes {
+          childImageSharp {
+            gatsbyImageData
           }
         }
       }
-    `)
+      titles: allHeaderDataJson {
+        edges {
+          node {
+            title
+            subtitle
+          }
+        }
+      }
+    }
+  `)
 
   const pluginImages = backgroundImages.nodes
-  console.log(pluginImages)
- 
+  const headerTitles = titles.edges
+
   return (
     <Carousel
-      infiniteLoop
-      emulateTouch
-      showStatus={false}
-      renderArrowPrev={(onClickHandler, hasPrev) =>
-          hasPrev && (
-              <Arrow left onClick={onClickHandler}>
-                  <GoChevronLeft />
-              </Arrow>
-          )
-      }
-      renderArrowNext={(onClickHandler, hasNext) =>
-          hasNext && (
-            <Arrow onClick={onClickHandler}><GoChevronRight/></Arrow>
-          )
-      }
-    >
-      {pluginImages.map((pluginImage) => (
-        <Heading image={getImage(pluginImage)}>
-          <Title>
-            <Show>
-              <h1>we build the future</h1>
-              <h2>best ideas - best solution - best result</h2>
-              <button>view more</button>
-            </Show>
-          </Title>
-        </Heading>
-      ))}
-      
-    </Carousel>
-    
-  )
-}
+        infiniteLoop
+        emulateTouch
+        showStatus={false}
+        autoPlay={false}
+        renderArrowPrev={(onClickHandler, hasPrev) =>
+            hasPrev && (
+                <Arrow left onClick={onClickHandler}>
+                    <GoChevronLeft />
+                </Arrow>
+            )
+        }
+        renderArrowNext={(onClickHandler, hasNext) =>
+            hasNext && (
+              <Arrow onClick={onClickHandler}><GoChevronRight/></Arrow>
+            )
+        }
+      >
+        {pluginImages.map((pluginImage, index) => (
+          <Heading image={getImage(pluginImage)}>
+            <Title>
+              <Show>
+                <h1>{ headerTitles[index].node.title }</h1>
+                <h2>{ headerTitles[index].node.subtitle}</h2>
+                <button>view more</button>
+              </Show>
+            </Title>
+          </Heading>
+        ))}
+      </Carousel>
+    )
+  }
 
 export default Header
 
@@ -84,19 +93,19 @@ const Title = styled.div`
   h1 {
     font-size: 70px;
     text-transform: uppercase;
+    letter-spacing: 5px;
   }
 
   h2 {
-    text-transform: capitalize;
     font-size: 40px;
     font-weight: lighter;
   }
 
   button {
-    padding: 10px 20px;
+    padding: 15px 30px;
     background: #f7992b;
     border: 3px solid #f7992b;
-    font-size: 30px;
+    font-size: 20px;
     color: #fff;
     border-radius: 5px;
     transition: 0.2s all ease-in-out;

@@ -34,7 +34,7 @@ export default Navbar
 
 const Nav = styled.nav`
     display: flex;
-    position: fixed;
+    position: absolute;
     width: 100%;
     justify-content: space-around;
     background: rgba(0, 0, 0, 0.5);
