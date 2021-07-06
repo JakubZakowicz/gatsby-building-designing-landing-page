@@ -14,6 +14,10 @@ const Header = () => {
     query BackgroundImageQuery {
       backgroundImages: allFile(
         filter: {relativePath: {regex: "/header-background/"}}
+        sort: {
+          fields: relativePath
+          order: ASC
+        }
       ) {
         nodes {
           childImageSharp {

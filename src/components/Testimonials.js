@@ -51,7 +51,6 @@ const Testimonials = () => {
                             <h3>John, posted on tripadvisor</h3>
                         </div>
                     </TestimonialCarousel>
-                    
                 </OrangeBg>
             </BgImage> 
         </TestimonialsContainer>
@@ -68,12 +67,11 @@ const TestimonialsContainer = styled.div`
 `
 const OrangeBg = styled.div`
     background: rgba(247,153,43, 0.8);
-    padding: 500px 0 200px 0;
+    padding: 500px 0 100px 0;
     color: #fff;    
 `
 
 const TestimonialCarousel = styled(Carousel)`
-    border: 1px solid black;
     width: 50%;
 
     div {
