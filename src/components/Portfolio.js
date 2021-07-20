@@ -3,15 +3,27 @@ import styled from 'styled-components'
 import { useStaticQuery, graphql } from 'gatsby'
 
 const Portfolio = () => {
-    const { portfolioImgs } = useStaticQuery(graphql`
+    const { portfolioImgs, portfolioData } = useStaticQuery(graphql`
         query MyQuery {
             portfolioImgs: allFile(
-                filter: {relativePath: {regex: "/portfolio/"}} 
-                sort: { fields: relativePath order: ASC }) {
-                    nodes {
-                        childImageSharp {
-                            gatsbyImageData
-                        }
+                filter: {
+                    relativePath: {
+                        regex: "/portfolio/"
+                    }, 
+                    sourceInstanceName: {eq: "images"}
+                }
+                sort: {fields: relativePath, order: ASC}
+                ) {
+                nodes {
+                    childImageSharp {
+                        gatsbyImageData
+                    }
+                }
+                }
+            portfolioData: allPortfolioDataJson {
+                nodes {
+                    title
+                    desc
                 }
             }
         }
@@ -29,20 +41,23 @@ const Portfolio = () => {
             </PortfolioContainer>
 
             <Projects>
-                {portfolioImgs.nodes.map(portfolioImg => (
+                {portfolioImgs.nodes.map((portfolioImg, index) => (
                     <Project>
-                        <img src={portfolioImg.childImageSharp.gatsbyImageData.images.fallback.src} width="611" height="464" alt="" />
+                        <img src={portfolioImg.childImageSharp.gatsbyImageData.images.fallback.src} alt="" />
                         <ImageBg>
                             <div>
-                                <h4>Engineering</h4>
-                                <h2>Ace Hotel</h2>
+                                <h4>{portfolioData.nodes[index].title}</h4>
+                                <h2>{portfolioData.nodes[index].desc}</h2>
                             </div> 
                         </ImageBg>
                     </Project>
                 ))}
+              
             </Projects>
+            <div style={{textAlign: 'center', marginTop: '50px'}}>
+                  <ViewBtn>view more</ViewBtn>
+            </div>
         </>
-        
     )
 }
 
@@ -75,9 +90,28 @@ const PortfolioContainer = styled.div`
     }
 
     p {
+        font-family: "Montserrat", Sans-serif;
         font-size: 17px;
         width: 50%;
         margin-top: 75px;
+    }
+
+    @media (max-width: 767px) {
+        display: block;
+        width: 100%;
+
+        div {
+            width: 50%;
+        }
+
+        h1, h5, p {
+            padding: 0 12px;
+        }
+
+        p {
+            width: 96%;
+            margin-top: 0;
+        }
     }
 `
 
@@ -88,10 +122,26 @@ const Projects = styled.div`
     justify-content: center;
     grid-row-gap: 15px;
     place-items: center;
+
+    @media (max-width: 767px) {
+        display: block;
+        width: 100%;
+        
+    }
 `
 
 const Project = styled.div`
     position: relative;
+
+    img {
+        width: 611px;
+        height: 464px;
+
+        @media (max-width: 767px) {
+            width: 90%;
+            height: 342px;
+        }
+    }
 `
 
 const ImageBg = styled.div`
@@ -116,5 +166,27 @@ const ImageBg = styled.div`
         text-align: center;
         text-transform: uppercase;
         line-height: 12px;
+    }
+
+    @media (max-width: 767px) {
+        width: 90%;
+        height: 342px;
+    }
+`
+
+const ViewBtn = styled.button`
+    background: transparent;
+    color: #e18f2f;
+    border: 1px solid #e18f2f;
+    transition: all 0.2s ease-in-out;
+    font-size: 15px;
+    padding: 20px 30px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin: auto;
+
+    &:hover {
+        background: #e18f2f;
+        color: #fff;
     }
 `

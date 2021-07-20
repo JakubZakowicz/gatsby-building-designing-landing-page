@@ -57,13 +57,12 @@ const AboutHome = () => {
 
                     <p>Designing sustainable, high-performance buildings requires an integration of architectural and engineered systems into a balanced design of sustainability an cost-effectiveness. Archus merges these practices with the unique requirements and guidelines necessary for advanced technology facilities.</p>
 
-                    <button>view more</button>
+                    <ViewBtn>view more</ViewBtn>
                 </div>
             </Advantages>
 
            <Testimonials />
         </AboutContainer>
-        
     )
 }
 
@@ -78,6 +77,11 @@ const TitleContainer = styled.div`
     justify-content: space-around;
     width: 50%;
     margin: auto;
+
+    @media (max-width: 767px) {
+        display: block;
+        width: 100%;
+    }
 `
 
 const Title = styled.div`
@@ -94,6 +98,15 @@ const Title = styled.div`
         font-weight: bolder;
         letter-spacing: 3px;
     }
+
+    @media (max-width: 767px) {
+        display: block;
+        width: 70%;
+
+        h4, h2 {
+            padding-left: 12px;
+        }
+    }
 `
 
 const Description = styled.div`
@@ -102,6 +115,15 @@ const Description = styled.div`
     margin-left: 20px;
     line-height: 25px;
     width: 65%;
+
+    @media (max-width: 767px) {
+        width: 96%;
+        margin-left: 0;
+        
+        p {
+            padding: 0 12px;
+        }
+    }
 `
 
 const Services = styled.div`
@@ -110,6 +132,11 @@ const Services = styled.div`
     width: 1175px;
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 767px) {
+        display: block;
+        width: 100%;
+    }
 `
 
 const Service = styled(BgImage)`
@@ -117,6 +144,12 @@ const Service = styled(BgImage)`
     width: 370px;
     height: 515px;
     z-index: 100;
+
+    @media (max-width: 767px) {
+        width: 96%;
+        margin: auto;
+        margin-bottom: 20px;
+    }
 `
 
 const ServiceLink = styled(Link)`
@@ -140,7 +173,7 @@ const Advantages = styled.div`
     background: #000;
     color: #fff;
     width: 70%;
-    padding: 100px 0;
+    padding: 80px 0 175px 0;
     margin-top: 250px;
     font-weight: lighter;
     
@@ -153,25 +186,46 @@ const Advantages = styled.div`
         text-transform: uppercase;
     }
 
+    h1 {
+        font-size: 35px;
+    }
+
+    h2 {
+        font-family: "Montserrat", Sans-serif;
+        font-size: 20px;
+        font-weight: lighter;
+    }
+
     p {
+        font-family: "Montserrat", Sans-serif;
         line-height: 30px;
         width: 70%;
     }
 
-    button {
-        background: transparent;
-        color: #e18f2f;
-        border: 1px solid #e18f2f;
-        transition: all 0.2s ease-in-out;
-        font-size: 15px;
-        padding: 20px 30px;
-        margin-top: 20px;
-        text-transform: uppercase;
-        letter-spacing: 5px;
+    @media (max-width: 767px) {
+        width: 100%;
+        margin-top: 0;
 
-        &:hover {
-            background: #e18f2f;
-            color: #fff;
+        div {
+            width: 100%;
+            padding-left: 20px;
         }
     }
+`
+
+const ViewBtn = styled.button`
+  background: transparent;
+  color: #e18f2f;
+  border: 1px solid #e18f2f;
+  transition: all 0.2s ease-in-out;
+  font-size: 15px;
+  padding: 20px 30px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin-top: 20px;
+
+  &:hover {
+    background: #e18f2f;
+    color: #fff;
+  }
 `

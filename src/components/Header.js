@@ -98,6 +98,8 @@ const Title = styled.div`
     font-size: 70px;
     text-transform: uppercase;
     letter-spacing: 5px;
+    line-height: 80px;
+    margin-bottom: -15px;
   }
 
   h2 {
@@ -119,6 +121,18 @@ const Title = styled.div`
   button:hover {
     background: transparent;
     color: #f7992b;
+  }
+
+  @media (max-width: 767px) {
+      
+    h1 {
+      font-size: 40px;
+      line-height: 50px;
+    }
+
+    h2 {
+      font-size: 25px;
+    }
   }
 `
 

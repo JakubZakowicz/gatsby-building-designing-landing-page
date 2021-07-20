@@ -64,6 +64,11 @@ const TestimonialsContainer = styled.div`
     top: 500px;
     right: 0;
     width: 50%;
+
+    @media (max-width: 767px) {
+        position: static;
+        width: 100%;
+    }
 `
 const OrangeBg = styled.div`
     background: rgba(247,153,43, 0.8);
