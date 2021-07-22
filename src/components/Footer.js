@@ -25,7 +25,7 @@ const Footer = () => {
           </div>
           
         </Tags>
-        <RecentComents>
+        <RecentComments>
           <h3 id="recent-comments-header">recent comments</h3>
       
           <p><Author to="/">admin</Author> <Author to="/">July 4, 2018</Author></p>
@@ -33,7 +33,7 @@ const Footer = () => {
           <br />
           <p><Author to="/">admin</Author> <Author to="/">July 4, 2018</Author></p>
           <h3><Comment to="/">groundbreaking women in construction</Comment></h3>
-        </RecentComents>
+        </RecentComments>
       </FooterContainer>
     </Background>
   )
@@ -45,26 +45,13 @@ const Background = styled.div`
   background: #2b3238;
 `
 
-const FooterContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  color: #fff;
-  width: 70%;
-  margin: auto;
-  padding: 50px 0;
-
-  div {
-   
-  }
-
-  h3 {
-    text-transform: uppercase;
-    margin-bottom: 30px;
-  }
-`
-
 const About = styled.div`
   width: 25%;
+
+  p {
+    font-family: "Montserrat", Sans-serif;
+    line-height: 25px;
+  }
 `
 
 const Tags = styled.div`
@@ -93,7 +80,7 @@ const Tag = styled(Link)`
   }
 `
 
-const RecentComents = styled.div`
+const RecentComments = styled.div`
   line-height: 15px;
   width: 20%;
 
@@ -132,5 +119,43 @@ const Author = styled(Link)`
 
   &:hover {
     color: #e18f2f;
+  }
+`
+
+const FooterContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
+  width: 70%;
+  margin: auto;
+  padding: 50px 0;
+
+  div {
+   
+  }
+
+  h3 {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 767px) {
+    display: block;
+    width: 100%;
+
+    ${About}, ${Tags}, ${RecentComments} {
+      width: 100%;
+      padding: 0 12px;
+    }
+
+    ${About} {
+      p {
+        width: 95%;
+      }
+    }
+
+    ${RecentComments} {
+      margin-top: 50px;
+    }
   }
 `

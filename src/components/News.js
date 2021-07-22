@@ -1,16 +1,42 @@
 import React from 'react'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
+import { Carousel } from 'react-responsive-carousel'
 
 const News = () => {
   return (
     <Container>
       <LatestNews>
-        <div>
+        <div className="margin">
           <h3>latest news</h3>
           <h1>top insights on the current industry</h1>
-          <h2>sustainable building design</h2>
-          <p>Posted by admin July 4,2018</p>
-          <p>The main objectives of sustainable design are to reduce, or completely avoid, depletion of critical resources like energy, water, land, and raw materials; prevent environmental degradation caused by facilities and infrastructure throughout their life cycle, and create build environments that...</p>
+          <NewsCarousel 
+            infiniteLoop
+            showArrows={false}
+            emulateTouch
+            showStatus={false}
+          >
+           <div>
+              <Title to="/"><h2>sustainable building design</h2></Title> 
+              <p>Posted by admin July 4,2018</p>
+              <p>The main objectives of sustainable design are to reduce, or completely avoid, depletion of critical resources like energy, water, land, and raw materials; prevent environmental degradation caused by facilities and infrastructure throughout their life cycle, and create build environments that...</p>
+           </div>
+           <div>
+              <Title to="/"><h2>groundbreaking women in construction</h2></Title>
+              <p>Posted by admin July 4,2018</p>
+              <p>Like many older U.S. cities, our nation's capital infrastructure dates back to the early 1800s and their storm and wasewater treatment system is no longer able to accomodate heavy rain events, vausing overflows of untreated waste into nearby rivers and...</p>
+           </div>
+           <div>
+              <Title to="/"><h2>modern extension to brick house</h2></Title>
+              <p>Posted by admin July 4,2018</p>
+              <p>The $2.5 million two-story 4,000-square-foot, addition to the existing hospital will provide expanded Interventional Radiology services on the second floor with a new interventional imaging room as well as associated control, patient holding, exam, storage and system electronics spaces. Work...</p>
+           </div>
+           <div>
+              <Title to="/"><h2>fitting a square building</h2></Title>
+              <p>Posted by admin July 4,2018</p>
+              <p>Four-hundred women from construction companies around the country gathered for this incredible two-day event in San Francisco, California, The main theme of the conference was the importance of diversity and inclusion to a company's success. Event speakers focused on the financial...</p>
+           </div>
+          </NewsCarousel>
         </div>
         
       </LatestNews>
@@ -28,35 +54,52 @@ const News = () => {
 
 export default News
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 100px;
-
-  @media (max-width: 767px) {
-    display: block;
-  }
-`
-
 const LatestNews = styled.div`
   background: #000;
   color: #fff;
   width: 50%;
 
-  div {
+  .margin {
     width: 60%;
     margin-left: 25%;
     padding: 100px 0 100px 0;
 
-    p {
-      font-family: "Montserrat", Sans-serif;
+    h1, h2, h3 {
+      text-transform: uppercase;
     }
 
-  }
+    h3 {
+      font-family: "Montserrat", Sans-serif;
+      font-weight: lighter;
+      font-size: 15px;
+    }
 
-  @media (max-width: 767px) {
-    width: 100%;
+    h1 {
+      font-size: 40px;
+      width: 400px;
+    }
+
+    p {
+      font-family: "Montserrat", Sans-serif;
+      line-height: 30px;
+    }
+  }
+`
+
+const NewsCarousel = styled(Carousel)`  
+  div {
+    text-align: left;
+    padding-bottom: 10px;
+  }
+`
+
+const Title = styled(Link)`
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #e18f2f;
   }
 `
 
@@ -64,19 +107,24 @@ const Newsletter = styled.div`
   width: 50%;
   background: #e18f2f;
   color: #fff;
-
-  @media (max-width: 767px) {
-    width: 100%;
-  }
 `
 
 const NewsletterForm = styled.form`
   width: 70%;
   margin: auto;
-  padding: 50px 0 50px 0;
+  padding: 100px 0 130px 0;
 
   h3, h1 {
     text-transform: uppercase;
+  }
+
+  h3, p {
+    font-family: "Montserrat", Sans-serif;
+    font-weight: lighter;
+  }
+
+  h3 {
+    font-size: 15px;
   }
 `
 
@@ -87,7 +135,45 @@ const NewsletterInput = styled.input`
   border: 1px solid white;
 
   &::placeholder {
+    font-family: "Montserrat", Sans-serif;
     color: #fff;
     padding-left: 15px;
+  }
+`
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+
+  @media (max-width: 767px) {
+    display: block;
+
+    ${LatestNews} {
+      width: 100%;
+
+      div {
+        margin-left: 0;
+        width: 100%;
+        
+        h1, h2, h3, p {
+          padding: 0 15px;
+        }
+      }
+    }
+
+    ${Newsletter} {
+      width: 100%;
+      
+      ${NewsletterForm} {
+        width: 95%;
+        
+      }
+
+      ${NewsletterInput} {
+        width: 100%;
+      }
+    }
   }
 `

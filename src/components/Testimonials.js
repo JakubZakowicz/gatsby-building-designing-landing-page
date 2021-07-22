@@ -20,6 +20,8 @@ const Testimonials = () => {
         <TestimonialsContainer>
             <BgImage image={getImage(testimonialsBg)}>
                 <OrangeBg>
+                    <h3>testimonials</h3>
+                    <h1>what our <br/> clients say</h1>
                     <TestimonialCarousel
                         infiniteLoop
                         emulateTouch
@@ -27,28 +29,19 @@ const Testimonials = () => {
                         showStatus={false}
                     >
                         <div>
-                            <h3>testimonials</h3>
-                            <h1>what our <br/> clients say</h1>
-
                             <p>Warmhouse has been a great partner to work with, whenever we need something done right away, and when we need someone we can trust to do the right thing.</p>
 
-                            <h3>John, posted on tripadvisor</h3>
+                            <h3>JOHN, posted on tripadvisor</h3>
                         </div>
                         <div>
-                            <h3>testimonials</h3>
-                            <h1>what our <br/> clients say</h1>
+                            <p>It's been a pleasure working with Warmhouse team on the build out of our new executive office space at in Westlake Village, CA. Throughout hte process.</p>
 
-                            <p>Warmhouse has been a great partner to work with, whenever we need something done right away, and when we need someone we can trust to do the right thing.</p>
-
-                            <h3>John, posted on tripadvisor</h3>
+                            <h3>LILI, posted on tripadvisor</h3>
                         </div>
                         <div>
-                            <h3>testimonials</h3>
-                            <h1>what our <br/> clients say</h1>
+                            <p>It is not every construction company that can build a building from ground up and complete 80,000 sq. ft. of first class office improvement space in 13 months.</p>
 
-                            <p>Warmhouse has been a great partner to work with, whenever we need something done right away, and when we need someone we can trust to do the right thing.</p>
-
-                            <h3>John, posted on tripadvisor</h3>
+                            <h3>KENT, posted on tripadvisor</h3>
                         </div>
                     </TestimonialCarousel>
                 </OrangeBg>
@@ -73,11 +66,26 @@ const TestimonialsContainer = styled.div`
 const OrangeBg = styled.div`
     background: rgba(247,153,43, 0.8);
     padding: 500px 0 100px 0;
-    color: #fff;    
+    color: #fff;  
+    
+    h3, h1 {
+        margin-left: 100px;
+        text-transform: uppercase;
+    }
+
+    h3 {
+        font-family: "Montserrat", Sans-serif;
+        font-weight: lighter;
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
 `
 
 const TestimonialCarousel = styled(Carousel)`
-    width: 50%;
+    width: 80%;
 
     div {
         width: 50%;
@@ -85,14 +93,16 @@ const TestimonialCarousel = styled(Carousel)`
     }
 
     p {
-        width: 60%;
+        font-family: "Montserrat", Sans-serif;
+        font-weight: lighter;
+        font-size: 1.3rem;
+        line-height: 30px;
+        text-align: left;
     }
 
-    h1, h3 {
+    h3 {
         text-transform: uppercase;
+        text-align: left;
     }
 
-    h1 {
-        font-size: 35px;
-    }
 `

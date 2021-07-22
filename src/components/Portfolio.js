@@ -115,32 +115,12 @@ const PortfolioContainer = styled.div`
     }
 `
 
-const Projects = styled.div`
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-content: center;
-    grid-row-gap: 15px;
-    place-items: center;
-
-    @media (max-width: 767px) {
-        display: block;
-        width: 100%;
-        
-    }
-`
-
 const Project = styled.div`
     position: relative;
 
     img {
         width: 611px;
         height: 464px;
-
-        @media (max-width: 767px) {
-            width: 90%;
-            height: 342px;
-        }
     }
 `
 
@@ -167,11 +147,6 @@ const ImageBg = styled.div`
         text-transform: uppercase;
         line-height: 12px;
     }
-
-    @media (max-width: 767px) {
-        width: 90%;
-        height: 342px;
-    }
 `
 
 const ViewBtn = styled.button`
@@ -188,5 +163,30 @@ const ViewBtn = styled.button`
     &:hover {
         background: #e18f2f;
         color: #fff;
+    }
+`
+
+const Projects = styled.div`
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    grid-row-gap: 15px;
+    place-items: center;
+
+    @media (max-width: 767px) {
+        grid-template-columns: repeat(1, 1fr);
+        
+        ${Project} {
+            img {
+                width: 90%;
+                height: 342px;
+            }
+        }
+
+        ${ImageBg} {
+            width: 90%;
+            height: 342px; 
+        }
     }
 `

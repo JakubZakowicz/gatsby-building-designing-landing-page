@@ -48,26 +48,6 @@ const Contact = () => {
 
 export default Contact
 
-const Container = styled.div`
-  width: 50%;
-  margin: auto;
-  margin-bottom: 80px;
-
-  h1, h3 {
-    text-transform: uppercase;
-  }
-
-  .flex {
-    display: flex;
-    justify-content: space-between;
-
-    @media (max-width: 767px) {
-      display: block;
-    }
-
-  }
-`
-
 const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -77,6 +57,15 @@ const ContactForm = styled.form`
     background: rgba(0, 0, 0, .05);
     margin-top: 20px;
     border: none;
+  }
+
+  input::placeholder, 
+  textarea::placeholder {
+    font-family: "Montserrat", Sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    padding-left: 10px;
+    padding-top: 10px;
   }
 
   input {
@@ -130,5 +119,53 @@ const SocialLink = styled(Link)`
 
   &:hover {
     color: #e18f2f;
+  }
+`
+
+const Container = styled.div`
+  width: 50%;
+  margin: auto;
+  margin-bottom: 80px;
+
+  h3 {
+    font-family: "Montserrat", Sans-serif;
+    font-weight: lighter;
+    font-size: 15px;
+  }
+
+  h1, h3 {
+    text-transform: uppercase;
+  }
+
+  p {
+    font-family: "Montserrat", Sans-serif;
+    line-height: 30px;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 767px) {
+    margin: 0;
+    width: 100%;
+
+    .flex {
+      display: block;
+    }
+
+     h3, h1, .flex {
+      padding: 0 20px;
+    }
+
+    ${ContactForm} {
+      width: 100%;
+
+      button {
+        margin-bottom: 100px;
+      }
+    }
+
   }
 `

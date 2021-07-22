@@ -44,6 +44,13 @@ const CopyRightsContainer = styled.div`
       width: 120px;
     }
   }
+
+   @media (max-width: 767px) {
+      .center {
+        flex-direction: column;
+        padding: 20px 0;
+      }
+    }
 `
 
 const SocialMedia = styled.div`

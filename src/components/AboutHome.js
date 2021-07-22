@@ -68,20 +68,11 @@ const AboutHome = () => {
 
 export default AboutHome
 
-const AboutContainer = styled.div`
-    position: relative;
-`
-
 const TitleContainer = styled.div`
     display: flex;
     justify-content: space-around;
     width: 50%;
     margin: auto;
-
-    @media (max-width: 767px) {
-        display: block;
-        width: 100%;
-    }
 `
 
 const Title = styled.div`
@@ -98,15 +89,6 @@ const Title = styled.div`
         font-weight: bolder;
         letter-spacing: 3px;
     }
-
-    @media (max-width: 767px) {
-        display: block;
-        width: 70%;
-
-        h4, h2 {
-            padding-left: 12px;
-        }
-    }
 `
 
 const Description = styled.div`
@@ -115,15 +97,6 @@ const Description = styled.div`
     margin-left: 20px;
     line-height: 25px;
     width: 65%;
-
-    @media (max-width: 767px) {
-        width: 96%;
-        margin-left: 0;
-        
-        p {
-            padding: 0 12px;
-        }
-    }
 `
 
 const Services = styled.div`
@@ -132,11 +105,6 @@ const Services = styled.div`
     width: 1175px;
     display: flex;
     justify-content: space-between;
-
-    @media (max-width: 767px) {
-        display: block;
-        width: 100%;
-    }
 `
 
 const Service = styled(BgImage)`
@@ -144,12 +112,6 @@ const Service = styled(BgImage)`
     width: 370px;
     height: 515px;
     z-index: 100;
-
-    @media (max-width: 767px) {
-        width: 96%;
-        margin: auto;
-        margin-bottom: 20px;
-    }
 `
 
 const ServiceLink = styled(Link)`
@@ -201,16 +163,6 @@ const Advantages = styled.div`
         line-height: 30px;
         width: 70%;
     }
-
-    @media (max-width: 767px) {
-        width: 100%;
-        margin-top: 0;
-
-        div {
-            width: 100%;
-            padding-left: 20px;
-        }
-    }
 `
 
 const ViewBtn = styled.button`
@@ -228,4 +180,54 @@ const ViewBtn = styled.button`
     background: #e18f2f;
     color: #fff;
   }
+`
+
+const AboutContainer = styled.div`
+    position: relative;
+
+    @media (max-width: 767px) {
+        ${TitleContainer} {
+            display: block;
+            width: 100%;
+
+            ${Title} {
+                display: block;
+                width: 70%;
+
+                h4, h2 {
+                    padding-left: 12px;
+                }
+            }
+
+            ${Description} {
+                width: 96%;
+                margin-left: 0;
+                
+                p {
+                    padding: 0 12px;
+                }
+            }
+        }
+
+        ${Services} {
+            display: block;
+            width: 100%;
+
+            ${Service} {
+                width: 96%;
+                margin: auto;
+                margin-bottom: 20px;
+            }
+        }
+
+        ${Advantages} {
+            width: 100%;
+            margin-top: 0;
+
+            div {
+                width: 100%;
+                padding-left: 20px;
+            }
+        }
+    }
 `
