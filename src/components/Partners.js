@@ -18,7 +18,7 @@ const Partners = () => {
       }
     }
   `)
-  console.log(homeBrands)
+  
   return (
     <Container>
       <Title>

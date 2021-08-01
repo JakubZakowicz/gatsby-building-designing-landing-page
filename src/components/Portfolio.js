@@ -1,6 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useStaticQuery, graphql } from 'gatsby'
+import Modal from 'react-modal'
+import { Carousel } from 'react-responsive-carousel'
+
+const modalStyle = {
+
+    overlay: {
+        background: 'rgba(0, 0, 0, 0.75)',
+        zIndex: '100000'
+    },
+    content: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '50%',
+        height: '80%',
+        background: 'transparent',
+        overflow: 'hidden',
+        border: 'none'
+    }
+}
 
 const Portfolio = () => {
     const { portfolioImgs, portfolioData } = useStaticQuery(graphql`
@@ -28,7 +49,7 @@ const Portfolio = () => {
             }
         }
     `)
-
+    const [isModal, setIsModal] = useState(false)
     return (
         <>
             <PortfolioContainer>
@@ -44,7 +65,7 @@ const Portfolio = () => {
                 {portfolioImgs.nodes.map((portfolioImg, index) => (
                     <Project>
                         <img src={portfolioImg.childImageSharp.gatsbyImageData.images.fallback.src} alt="" />
-                        <ImageBg>
+                        <ImageBg onClick={() => setIsModal(true)}>
                             <div>
                                 <h4>{portfolioData.nodes[index].title}</h4>
                                 <h2>{portfolioData.nodes[index].desc}</h2>
@@ -52,11 +73,28 @@ const Portfolio = () => {
                         </ImageBg>
                     </Project>
                 ))}
-              
             </Projects>
             <div style={{textAlign: 'center', marginTop: '50px'}}>
                   <ViewBtn>view more</ViewBtn>
             </div>
+            <Modal 
+                isOpen={isModal}
+                style={modalStyle}
+                onRequestClose={() => setIsModal(false)}
+            >
+                <ModalCarousel
+                    infiniteLoop
+                    emulateTouch
+                    showStatus={false}
+                    showIndicators={false}
+                >
+                    {portfolioImgs.nodes.map((portfolioImg, index) => (
+                        <div>
+                            <img src={portfolioImg.childImageSharp.gatsbyImageData.images.fallback.src} alt="" />
+                        </div>
+                    ))}
+                </ModalCarousel>
+            </Modal>
         </>
     )
 }
@@ -164,6 +202,10 @@ const ViewBtn = styled.button`
         background: #e18f2f;
         color: #fff;
     }
+`
+
+const ModalCarousel = styled(Carousel)`
+
 `
 
 const Projects = styled.div`

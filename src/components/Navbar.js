@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 import { GoThreeBars } from 'react-icons/go'
+import Modal from 'react-modal'
 
 const Navbar = () => {
     const data = useStaticQuery(graphql`
@@ -10,7 +11,7 @@ const Navbar = () => {
             id
             childImageSharp {
                 fluid {
-                    src
+                        src
                     }
                 }
             }
@@ -18,6 +19,10 @@ const Navbar = () => {
     `)
     
     const [navLinks, setNavLinks] = useState(false)
+
+    const toggleModal = () => {
+        setNavLinks(!navLinks)
+    }
     return (
         <Nav>
             <Link><Logo src={data.file.childImageSharp.fluid.src} width="197" height="50" /></Link>
@@ -28,9 +33,24 @@ const Navbar = () => {
                 <li><NavLink to="/projects">projects</NavLink></li>
                 <li><NavLink to="/blog">blog</NavLink></li>
             </NavLinks>
-            <MenuBars onClick={() => setNavLinks(!navLinks)}><GoThreeBars /></MenuBars>
+            <MenuBars onClick={toggleModal}><GoThreeBars /></MenuBars>
+            <Modal 
+                isOpen={navLinks}
+                style={modalStyle}
+                onRequestClose={toggleModal}
+            >
+            </Modal>
         </Nav>
     )
+}
+
+const modalStyle = {
+    overlay: {
+        background: 'rgba(0, 0, 0, 0.5)'
+    },
+    content: {
+        display: 'none'
+    }
 }
 
 export default Navbar
@@ -68,16 +88,17 @@ const NavLinks = styled.ul`
     }
 
     @media (max-width: 767px) {
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            background: #000;
-            right: -70%;
-            top: -16px;
-            width: 60%;
-            height: 100vh;
-            transition: all 0.3s ease-in-out;
-            transform: translateX(${props => props.navLinks ? '-100%' : '0'});
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        background: #000;
+        right: -70%;
+        top: -16px;
+        width: 60%;
+        height: 100vh;
+        transition: all 0.3s ease-in-out;
+        transform: translateX(${props => props.navLinks ? '-100%' : '0'});
+        z-index: 1000;
     }
 `
 
@@ -100,7 +121,6 @@ const MenuBars = styled.span`
     font-size: 30px;
     transition: all 0.2s ease-in-out;
     margin-right: 20px;
-    z-index: 100;
 
     &:hover {
         color: #e18f2f;

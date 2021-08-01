@@ -1,39 +1,54 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import styled from 'styled-components'
+import { useSpring, Spring, animated } from 'react-spring'
+import { InView } from 'react-intersection-observer';
 
-import { graphql, useStaticQuery } from 'gatsby'
-import { getImage } from 'gatsby-plugin-image'
-import { BgImage } from 'gbimage-bridge'
-
+import Services from './Services'
 import Testimonials from './Testimonials'
+import Advantages from './Advantages'
 
 const AboutHome = () => {
 
-    const { services } = useStaticQuery(graphql`
-        query ServicesQuery {
-            services: allFile(
-            filter: {relativePath: {regex: "/services/"}}
-            ) {
-            nodes {
-                childImageSharp {
-                    gatsbyImageData
-                    }
-                }
+    const animations = {
+        titleH4: useSpring({ 
+            from: { 
+                transform: 'translateX(200px)',
+                opacity: 0
+            }, 
+            to: { 
+                transform: 'translateX(0)',
+                opacity: 1
+            } }),
+        titleH2: useSpring({ 
+            from: {
+                transform: 'translateX(-200px)',
+                opacity: 0
+            },
+            to: {
+                transform: 'translateX(0)',
+                opacity: 1
             }
-        }
-    `)
+         }),
+    }
 
-    const serviceLinks = ['architecture', 'engineering', 'interior design']
-
-    const serviceImages = services.nodes
-
+    const [isInView, setIsInView] = React.useState(false)
     return (
         <AboutContainer>
             <TitleContainer>
                 <Title>
-                    <h4>about company</h4>
-                    <h2>we create and turn into reality</h2>
+                    <InView as="div" onChange={(inView, entry) => {
+                        console.log('Inview:', inView)
+                        setIsInView(inView)
+                        }}>
+                      {isInView 
+                        ?<div>
+                            <animated.h4 style={animations.titleH4}>about company</animated.h4>
+                            <animated.h2 style={animations.titleH2}>we create and turn into reality</animated.h2>
+                        </div>
+                        : <></>
+                      }
+                    </InView>
+                    
                 </Title>
                 <Description>
                     <p><strong>We apply innovative design solutions to enhance people's residential wellbeing and to help workplaces succed! All our team collaborates with our clients!</strong></p>
@@ -42,24 +57,9 @@ const AboutHome = () => {
                 </Description>
             </TitleContainer>
 
-            <Services>
-                {serviceImages.map((serviceImage, index) => (
-                    <Service image={getImage(serviceImage)}>
-                        <ServiceLink to='/about'>{ serviceLinks[index] }</ServiceLink>
-                    </Service>
-                ))}
-            </Services>
+            <Services />
 
-            <Advantages>
-                <div>
-                    <h2>advantages</h2>
-                    <h1>working on <br /> exclusive projects</h1>
-
-                    <p>Designing sustainable, high-performance buildings requires an integration of architectural and engineered systems into a balanced design of sustainability an cost-effectiveness. Archus merges these practices with the unique requirements and guidelines necessary for advanced technology facilities.</p>
-
-                    <ViewBtn>view more</ViewBtn>
-                </div>
-            </Advantages>
+            <Advantages />
 
            <Testimonials />
         </AboutContainer>
@@ -82,12 +82,14 @@ const Title = styled.div`
     h4 {
         font-size: 15px;
         font-weight: lighter;
+        transition: all 0.5s ease-in-out;
     }
 
     h2 {
         font-size: 40px;
         font-weight: bolder;
         letter-spacing: 3px;
+        transition: all 0.5s ease-in-out;
     }
 `
 
@@ -97,89 +99,6 @@ const Description = styled.div`
     margin-left: 20px;
     line-height: 25px;
     width: 65%;
-`
-
-const Services = styled.div`
-    margin: auto;
-    margin-top: 40px;
-    width: 1175px;
-    display: flex;
-    justify-content: space-between;
-`
-
-const Service = styled(BgImage)`
-    position: relative;
-    width: 370px;
-    height: 515px;
-    z-index: 100;
-`
-
-const ServiceLink = styled(Link)`
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 50px;
-    color: white;
-    font-size: 25px;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-    text-transform: uppercase;
-    font-weight: bold;
-
-    &:hover {
-        color: #e18f2f;
-    }
-`
-
-const Advantages = styled.div`
-    background: #000;
-    color: #fff;
-    width: 70%;
-    padding: 80px 0 175px 0;
-    margin-top: 250px;
-    font-weight: lighter;
-    
-    div {
-        width: 50%;
-        margin: auto;
-    }
-
-    h1, h2 {
-        text-transform: uppercase;
-    }
-
-    h1 {
-        font-size: 35px;
-    }
-
-    h2 {
-        font-family: "Montserrat", Sans-serif;
-        font-size: 20px;
-        font-weight: lighter;
-    }
-
-    p {
-        font-family: "Montserrat", Sans-serif;
-        line-height: 30px;
-        width: 70%;
-    }
-`
-
-const ViewBtn = styled.button`
-  background: transparent;
-  color: #e18f2f;
-  border: 1px solid #e18f2f;
-  transition: all 0.2s ease-in-out;
-  font-size: 15px;
-  padding: 20px 30px;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  margin-top: 20px;
-
-  &:hover {
-    background: #e18f2f;
-    color: #fff;
-  }
 `
 
 const AboutContainer = styled.div`
@@ -206,27 +125,6 @@ const AboutContainer = styled.div`
                 p {
                     padding: 0 12px;
                 }
-            }
-        }
-
-        ${Services} {
-            display: block;
-            width: 100%;
-
-            ${Service} {
-                width: 96%;
-                margin: auto;
-                margin-bottom: 20px;
-            }
-        }
-
-        ${Advantages} {
-            width: 100%;
-            margin-top: 0;
-
-            div {
-                width: 100%;
-                padding-left: 20px;
             }
         }
     }
