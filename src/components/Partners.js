@@ -1,6 +1,9 @@
 import React from 'react'
 import { useStaticQuery, graphql} from 'gatsby'
 import styled from 'styled-components'
+import { InView } from 'react-intersection-observer'
+import { useSpring, animated } from 'react-spring'
+import Bar from './Bar'
 
 const Partners = () => {
 
@@ -19,11 +22,37 @@ const Partners = () => {
     }
   `)
   
+  const [displayed, setDisplayed] = React.useState(false)
+
+  const animations = {
+    h4: useSpring({
+        transform: displayed ? 'translate(0)' : 'translate(300px)',
+        opacity: displayed ? 1 : 0
+    }),
+    h1: useSpring({
+        transform: displayed ? 'translate(0)' : 'translate(-300px)',
+        opacity: displayed ? 1 : 0
+    }),
+    bar: useSpring({ 
+      transform: displayed ? 'translate(0)' : 'translate(200px)',
+      opacity: displayed ? 1 : 0
+    }),
+  }
+
   return (
     <Container>
       <Title>
-        <h4>Partners</h4>
-        <h1>our clients & partners</h1>
+        <InView as="div" onChange={(inView, entry) => {
+            if(inView) {
+                setDisplayed(true)
+            }
+          }}
+        >
+          <animated.h4 style={animations.h4}>Partners</animated.h4>
+          <animated.h1 style={animations.h1}>our clients & partners</animated.h1>
+          <Bar style={animations.bar} />
+        </InView>
+        
       </Title>
       <Brands>
         {homeBrands.nodes.map((brand, index) => (
@@ -42,6 +71,7 @@ const Title = styled.div`
 
   h1, h4 {
     text-transform: uppercase;
+    transition: all 1s ease-in-out;
   }
 
   h1 {

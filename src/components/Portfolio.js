@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import { useStaticQuery, graphql } from 'gatsby'
 import Modal from 'react-modal'
 import { Carousel } from 'react-responsive-carousel'
+import { InView } from 'react-intersection-observer'
+import { useSpring, animated } from 'react-spring'
+import Bar from './Bar'
 
 const modalStyle = {
 
@@ -40,7 +43,7 @@ const Portfolio = () => {
                         gatsbyImageData
                     }
                 }
-                }
+            }
             portfolioData: allPortfolioDataJson {
                 nodes {
                     title
@@ -50,14 +53,37 @@ const Portfolio = () => {
         }
     `)
     const [isModal, setIsModal] = useState(false)
+    const [displayed, setDisplayed] = useState(false)
+
+    const animations = {
+        h5: useSpring({
+            transform: displayed ? 'translate(0)' : 'translate(300px)',
+            opacity: displayed ? 1 : 0
+        }),
+        h1: useSpring({
+            transform: displayed ? 'translate(0)' : 'translate(-300px)',
+            opacity: displayed ? 1 : 0
+        }),
+        bar: useSpring({ 
+            transform: displayed ? 'translate(0)' : 'translate(200px)',
+            opacity: displayed ? 1 : 0
+        }),
+    }
+
     return (
         <>
             <PortfolioContainer>
-                <div>
-                    <h5>Portfolio</h5>
-                    <h1>our latest projects</h1>
-                </div>
-                
+                <InView as="div" style={{position: 'relative'}} onChange={(inView, entry) => {
+                        if(inView) {
+                            setDisplayed(true)
+                        }
+                    }}
+                >
+                    <animated.h5 style={animations.h5}>Portfolio</animated.h5>
+                    <animated.h1 style={animations.h1}>our latest projects</animated.h1>
+                    <Bar style={animations.bar} />
+                </InView>
+                    
                 <p>We specialize in author's projects which represent your individuality. Out award-winning designers know how to create a prefect space space for your. We stand for durable materials, qualitative work and innovative technologies. Enjoy our unique architectural solution and design projects! Archivolt</p>
             </PortfolioContainer>
 
@@ -114,6 +140,7 @@ const PortfolioContainer = styled.div`
     
     h1, h5 {
         text-transform: uppercase;
+        transition: all 1s ease-in-out;
     }
 
     h1 {
@@ -148,7 +175,11 @@ const PortfolioContainer = styled.div`
 
         p {
             width: 96%;
-            margin-top: 0;
+            margin-top: 60px;
+        }
+
+        span {
+            left: 10px;
         }
     }
 `

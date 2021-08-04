@@ -1,52 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useSpring, Spring, animated } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 import { InView } from 'react-intersection-observer';
 
 import Services from './Services'
 import Testimonials from './Testimonials'
 import Advantages from './Advantages'
+import Bar from './Bar'
 
 const AboutHome = () => {
-
+    const [displayed, setDisplayed] = useState(false)
+    
     const animations = {
-        titleH4: useSpring({ 
-            from: { 
-                transform: 'translateX(200px)',
-                opacity: 0
-            }, 
-            to: { 
-                transform: 'translateX(0)',
-                opacity: 1
-            } }),
-        titleH2: useSpring({ 
-            from: {
-                transform: 'translateX(-200px)',
-                opacity: 0
-            },
-            to: {
-                transform: 'translateX(0)',
-                opacity: 1
-            }
+        titleH4: useSpring({
+            transform: displayed ? 'translate(0)' : 'translate(300px)',
+            opacity: displayed ? 1 : 0
          }),
+        titleH2: useSpring({ 
+            transform: displayed ? 'translate(0)' : 'translate(-300px)',
+            opacity: displayed ? 1 : 0
+         }),
+        bar: useSpring({ 
+            transform: displayed ? 'translate(0)' : 'translate(200px)',
+            opacity: displayed ? 1 : 0
+        }),
     }
 
-    const [isInView, setIsInView] = React.useState(false)
     return (
         <AboutContainer>
             <TitleContainer>
                 <Title>
-                    <InView as="div" onChange={(inView, entry) => {
-                        console.log('Inview:', inView)
-                        setIsInView(inView)
-                        }}>
-                      {isInView 
-                        ?<div>
-                            <animated.h4 style={animations.titleH4}>about company</animated.h4>
-                            <animated.h2 style={animations.titleH2}>we create and turn into reality</animated.h2>
-                        </div>
-                        : <></>
-                      }
+                    <InView as="div" style={{ position: 'relative' }} onChange={(inView, entry) => {
+                            if(inView) {
+                                setDisplayed(true)
+                            }
+                        }}
+                    >
+                        <animated.h4 style={animations.titleH4}>about company</animated.h4>
+                        <animated.h2 style={animations.titleH2}>we create and turn into reality</animated.h2>
+                        <Bar style={animations.bar} />
                     </InView>
                     
                 </Title>
@@ -55,6 +47,7 @@ const AboutHome = () => {
 
                     <p>All our team collaborates with out clients, across all of our 3 offices, which are located throughout the US. Our mission is to implement the outstanding design ideas and solutions for any project we're working on. During that process we carefully combine client's guidelines, technical pssibilitis, as well as the environmental issues. Enginnering and interior design solutions that we deliver are usualy born after a collaborative process</p>
                 </Description>
+                
             </TitleContainer>
 
             <Services />
@@ -82,14 +75,14 @@ const Title = styled.div`
     h4 {
         font-size: 15px;
         font-weight: lighter;
-        transition: all 0.5s ease-in-out;
+        transition: all 1s ease-in-out;
     }
 
     h2 {
         font-size: 40px;
         font-weight: bolder;
         letter-spacing: 3px;
-        transition: all 0.5s ease-in-out;
+        transition: all 1s ease-in-out;
     }
 `
 
@@ -115,6 +108,10 @@ const AboutContainer = styled.div`
 
                 h4, h2 {
                     padding-left: 12px;
+                }
+
+                span {
+                    left: 12px;
                 }
             }
 

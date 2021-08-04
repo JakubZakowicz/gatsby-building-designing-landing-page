@@ -1,15 +1,45 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 import { Carousel } from 'react-responsive-carousel'
+import { InView } from 'react-intersection-observer'
+import { useSpring, animated } from 'react-spring'
+import Bar from './Bar'
 
 const News = () => {
+  const newsInputRef = useRef()
+  const [displayed, setDisplayed] = useState(false)
+
+  const animations = {
+    h3: useSpring({
+        transform: displayed ? 'translate(0)' : 'translate(500px)',
+        opacity: displayed ? 1 : 0
+    }),
+    h1: useSpring({
+        transform: displayed ? 'translate(0)' : 'translate(-500px)',
+        opacity: displayed ? 1 : 0
+    }),
+    bar: useSpring({ 
+      transform: displayed ? 'translate(0)' : 'translate(500px)',
+      opacity: displayed ? 1 : 0
+    }),
+  }
+
   return (
     <Container>
       <LatestNews>
         <div className="margin">
-          <h3>latest news</h3>
-          <h1>top insights on the current industry</h1>
+          <InView as="div" onChange={(inView, entry) => {
+              if(inView) {
+                  setDisplayed(true)
+              }
+            }}
+          >
+            <animated.h3 style={animations.h3}>latest news</animated.h3>
+            <animated.h1 style={animations.h1}>top insights on the current industry</animated.h1>
+            <Bar style={animations.bar} />
+          </InView>
+          
           <NewsCarousel 
             infiniteLoop
             showArrows={false}
@@ -45,7 +75,7 @@ const News = () => {
           <h3>subscribe</h3>
           <h1>join our newsletter</h1>
           <p>Good news & event details as well straight to your incoming mail!</p>
-          <NewsletterInput placeholder="Enter Your E-mail" />
+          <NewsletterInput ref={newsInputRef} onBlur={() => newsInputRef.current.setSelectionRange(5, 5)} placeholder="Enter Your E-mail" />
         </NewsletterForm>
       </Newsletter>
     </Container>
@@ -66,6 +96,7 @@ const LatestNews = styled.div`
 
     h1, h2, h3 {
       text-transform: uppercase;
+      transition: all 1s ease-in-out;
     }
 
     h3 {
@@ -90,6 +121,7 @@ const NewsCarousel = styled(Carousel)`
   div {
     text-align: left;
     padding-bottom: 10px;
+    margin-top: 35px;
   }
 `
 
@@ -133,12 +165,14 @@ const NewsletterInput = styled.input`
   height: 40px;
   background: transparent;
   border: 1px solid white;
+  padding-left: 15px;
 
-  &::placeholder {
+  &, &::placeholder {
     font-family: "Montserrat", Sans-serif;
     color: #fff;
-    padding-left: 15px;
+    font-size: 1rem;
   }
+
 `
 
 const Container = styled.div`
@@ -159,6 +193,10 @@ const Container = styled.div`
         
         h1, h2, h3, p {
           padding: 0 15px;
+        }
+
+        span {
+          left: 15px;
         }
       }
     }

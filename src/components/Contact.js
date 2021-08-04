@@ -9,12 +9,42 @@ import {
   FaYoutube,
   FaPinterest
 } from 'react-icons/fa'
+import { InView } from 'react-intersection-observer'
+import { useSpring, animated } from 'react-spring'
+import Bar from './Bar'
 
 const Contact = () => {
+
+  const [displayed, setDisplayed] = React.useState(false)
+
+  const animations = {
+    h3: useSpring({
+        transform: displayed ? 'translate(0)' : 'translate(300px)',
+        opacity: displayed ? 1 : 0
+    }),
+    h1: useSpring({
+        transform: displayed ? 'translate(0)' : 'translate(-300px)',
+        opacity: displayed ? 1 : 0
+    }),
+    bar: useSpring({ 
+      transform: displayed ? 'translate(0)' : 'translate(200px)',
+      opacity: displayed ? 1 : 0
+    }),
+  }
+
   return (
     <Container>
-      <h3>let's get in touch</h3>
-      <h1>contact details</h1>
+      <InView as="div" onChange={(inView, entry) => {
+          if(inView) {
+              setDisplayed(true)
+          }
+        }}
+      >
+        <animated.h3 style={animations.h3}>let's get in touch</animated.h3>
+        <animated.h1 style={animations.h1}>contact details</animated.h1>
+        <Bar style={animations.bar} />
+      </InView>
+      
       <div className="flex">
         <div>
           <p>
@@ -57,6 +87,8 @@ const ContactForm = styled.form`
     background: rgba(0, 0, 0, .05);
     margin-top: 20px;
     border: none;
+    padding-left: 10px;
+    font-size: 16px;
   }
 
   input::placeholder, 
@@ -64,8 +96,6 @@ const ContactForm = styled.form`
     font-family: "Montserrat", Sans-serif;
     font-size: 16px;
     font-weight: lighter;
-    padding-left: 10px;
-    padding-top: 10px;
   }
 
   input {
@@ -73,7 +103,8 @@ const ContactForm = styled.form`
   }
 
   textarea {
-    height: 210px;
+    height: 200px;
+    padding-top: 10px;
   }
 
   button {
@@ -135,6 +166,7 @@ const Container = styled.div`
 
   h1, h3 {
     text-transform: uppercase;
+    transition: all 1s ease-in-out;
   }
 
   p {
@@ -145,6 +177,7 @@ const Container = styled.div`
   .flex {
     display: flex;
     justify-content: space-between;
+    margin-top: 30px;
   }
 
   @media (max-width: 767px) {
@@ -153,10 +186,15 @@ const Container = styled.div`
 
     .flex {
       display: block;
+      margin-top: 45px;
     }
 
      h3, h1, .flex {
       padding: 0 20px;
+    }
+
+    span {
+      left: 20px;
     }
 
     ${ContactForm} {
