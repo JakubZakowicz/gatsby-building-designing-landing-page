@@ -1,23 +1,20 @@
-import React from 'react'
-import styled from 'styled-components'
-import { keyframes } from 'styled-components'
-import { GoChevronLeft, GoChevronRight } from 'react-icons/go'
-import { Carousel } from 'react-responsive-carousel';
+import React from "react"
+import styled from "styled-components"
+import { keyframes } from "styled-components"
+import { GoChevronLeft, GoChevronRight } from "react-icons/go"
+import { Carousel } from "react-responsive-carousel"
 
-import { graphql, useStaticQuery } from 'gatsby'
-import { getImage } from 'gatsby-plugin-image'
+import { graphql, useStaticQuery } from "gatsby"
+import { getImage } from "gatsby-plugin-image"
 
-import { BgImage } from 'gbimage-bridge'
+import { BgImage } from "gbimage-bridge"
 
 const Header = () => {
   const { backgroundImages, titles } = useStaticQuery(graphql`
     query BackgroundImageQuery {
       backgroundImages: allFile(
-        filter: {relativePath: {regex: "/header-background/"}}
-        sort: {
-          fields: relativePath
-          order: ASC
-        }
+        filter: { relativePath: { regex: "/header-background/" } }
+        sort: { fields: relativePath, order: ASC }
       ) {
         nodes {
           childImageSharp {
@@ -41,37 +38,39 @@ const Header = () => {
 
   return (
     <Carousel
-        infiniteLoop
-        emulateTouch
-        showStatus={false}
-        autoPlay={false}
-        renderArrowPrev={(onClickHandler, hasPrev) =>
-            hasPrev && (
-                <Arrow left onClick={onClickHandler}>
-                    <GoChevronLeft />
-                </Arrow>
-            )
-        }
-        renderArrowNext={(onClickHandler, hasNext) =>
-            hasNext && (
-              <Arrow onClick={onClickHandler}><GoChevronRight/></Arrow>
-            )
-        }
-      >
-        {pluginImages.map((pluginImage, index) => (
-          <Heading image={getImage(pluginImage)}>
-            <Title>
-              <Show>
-                <h1>{ headerTitles[index].node.title }</h1>
-                <h2>{ headerTitles[index].node.subtitle}</h2>
-                <button>view more</button>
-              </Show>
-            </Title>
-          </Heading>
-        ))}
-      </Carousel>
-    )
-  }
+      infiniteLoop
+      emulateTouch
+      showStatus={false}
+      autoPlay={false}
+      renderArrowPrev={(onClickHandler, hasPrev) =>
+        hasPrev && (
+          <Arrow left onClick={onClickHandler}>
+            <GoChevronLeft />
+          </Arrow>
+        )
+      }
+      renderArrowNext={(onClickHandler, hasNext) =>
+        hasNext && (
+          <Arrow onClick={onClickHandler}>
+            <GoChevronRight />
+          </Arrow>
+        )
+      }
+    >
+      {pluginImages.map((pluginImage, index) => (
+        <Heading image={getImage(pluginImage)}>
+          <Title>
+            <Show>
+              <h1>{headerTitles[index].node.title}</h1>
+              <h2>{headerTitles[index].node.subtitle}</h2>
+              <button>view more</button>
+            </Show>
+          </Title>
+        </Heading>
+      ))}
+    </Carousel>
+  )
+}
 
 export default Header
 
@@ -124,7 +123,6 @@ const Title = styled.div`
   }
 
   @media (max-width: 767px) {
-      
     h1 {
       font-size: 40px;
       line-height: 50px;
@@ -139,7 +137,7 @@ const Title = styled.div`
 const Arrow = styled.span`
   position: absolute;
   top: 50%;
-  ${ props => props.left ? "left: 30px;" : "right: 30px;"}
+  ${props => (props.left ? "left: 30px;" : "right: 30px;")}
   font-size: 40px;
   color: #fff;
   opacity: 0.5;
@@ -148,7 +146,7 @@ const Arrow = styled.span`
     opacity: 1;
   }
 `
-  const show = keyframes`
+const show = keyframes`
     from {
       opacity: 0;
       transform: translateY(100px);
@@ -160,6 +158,6 @@ const Arrow = styled.span`
     }
   `
 
-  const Show = styled.div`
-    animation: ${show} 0.2s linear;
-  `
+const Show = styled.div`
+  animation: ${show} 0.2s linear;
+`

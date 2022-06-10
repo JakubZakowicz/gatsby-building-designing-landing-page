@@ -1,17 +1,19 @@
-import React from 'react'
-import { useStaticQuery, graphql} from 'gatsby'
-import styled from 'styled-components'
-import { InView } from 'react-intersection-observer'
-import { useSpring, animated } from 'react-spring'
-import Bar from './Bar'
+import React from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import styled from "styled-components"
+import { InView } from "react-intersection-observer"
+import { useSpring, animated } from "react-spring"
+import Bar from "./Bar"
 
 const Partners = () => {
-
   const { homeBrands } = useStaticQuery(graphql`
     query HomeBrands {
       homeBrands: allFile(
-        filter: {relativePath: {regex: "/home-brands/"}, sourceInstanceName: {eq: "images"}}
-        sort: {fields: relativePath, order: ASC}
+        filter: {
+          relativePath: { regex: "/home-brands/" }
+          sourceInstanceName: { eq: "images" }
+        }
+        sort: { fields: relativePath, order: ASC }
       ) {
         nodes {
           childImageSharp {
@@ -21,44 +23,50 @@ const Partners = () => {
       }
     }
   `)
-  
+
   const [displayed, setDisplayed] = React.useState(false)
 
   const animations = {
     h4: useSpring({
-        transform: displayed ? 'translate(0)' : 'translate(300px)',
-        opacity: displayed ? 1 : 0
+      transform: displayed ? "translate(0)" : "translate(300px)",
+      opacity: displayed ? 1 : 0,
     }),
     h1: useSpring({
-        transform: displayed ? 'translate(0)' : 'translate(-300px)',
-        opacity: displayed ? 1 : 0
+      transform: displayed ? "translate(0)" : "translate(-300px)",
+      opacity: displayed ? 1 : 0,
     }),
-    bar: useSpring({ 
-      transform: displayed ? 'translate(0)' : 'translate(200px)',
-      opacity: displayed ? 1 : 0
+    bar: useSpring({
+      transform: displayed ? "translate(0)" : "translate(200px)",
+      opacity: displayed ? 1 : 0,
     }),
   }
 
   return (
     <Container>
       <Title>
-        <InView as="div" onChange={(inView, entry) => {
-            if(inView) {
-                setDisplayed(true)
+        <InView
+          as="div"
+          onChange={(inView) => {
+            if (inView) {
+              setDisplayed(true)
             }
           }}
         >
           <animated.h4 style={animations.h4}>Partners</animated.h4>
-          <animated.h1 style={animations.h1}>our clients & partners</animated.h1>
+          <animated.h1 style={animations.h1}>
+            our clients & partners
+          </animated.h1>
           <Bar style={animations.bar} />
         </InView>
-        
       </Title>
       <Brands>
         {homeBrands.nodes.map((brand, index) => (
-          <img key={index} src={brand.childImageSharp.gatsbyImageData.images.fallback.src} alt="" />
+          <img
+            key={index}
+            src={brand.childImageSharp.gatsbyImageData.images.fallback.src}
+            alt=""
+          />
         ))}
-
       </Brands>
     </Container>
   )
@@ -69,7 +77,8 @@ export default Partners
 const Title = styled.div`
   width: 50%;
 
-  h1, h4 {
+  h1,
+  h4 {
     text-transform: uppercase;
     transition: all 1s ease-in-out;
   }

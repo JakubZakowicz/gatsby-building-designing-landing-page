@@ -1,13 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'gatsby'
-import { 
-  FaFacebookF, 
-  FaTwitter,
-  FaInstagram, 
-  FaYoutube,
-} from 'react-icons/fa'
-import Logo from '../images/header-logo.png'
+import React from "react"
+import styled from "styled-components"
+import { Link } from "gatsby"
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa"
+import Logo from "../images/header-logo.png"
 
 function CopyRights() {
   return (
@@ -16,12 +11,20 @@ function CopyRights() {
         <img src={Logo} alt="" />
         <p>&copy; 2021. Worky. All Rights Reserved.</p>
         <SocialMedia>
-          <SocialLink to="/"><FaFacebookF /></SocialLink>
-          <SocialLink to="/"><FaTwitter /></SocialLink>
-          <SocialLink to="/"><FaInstagram /></SocialLink>
-          <SocialLink to="/"><FaYoutube /></SocialLink>
+          <SocialLink to="/">
+            <FaFacebookF />
+          </SocialLink>
+          <SocialLink to="/">
+            <FaTwitter />
+          </SocialLink>
+          <SocialLink to="/">
+            <FaInstagram />
+          </SocialLink>
+          <SocialLink to="/">
+            <FaYoutube />
+          </SocialLink>
         </SocialMedia>
-      </div>    
+      </div>
     </CopyRightsContainer>
   )
 }
@@ -32,7 +35,7 @@ const CopyRightsContainer = styled.div`
   background: #000;
   color: #fff;
   padding: 7px 0;
-  
+
   .center {
     width: 65%;
     display: flex;
@@ -45,12 +48,12 @@ const CopyRightsContainer = styled.div`
     }
   }
 
-   @media (max-width: 767px) {
-      .center {
-        flex-direction: column;
-        padding: 20px 0;
-      }
+  @media (max-width: 767px) {
+    .center {
+      flex-direction: column;
+      padding: 20px 0;
     }
+  }
 `
 
 const SocialMedia = styled.div`
@@ -58,7 +61,6 @@ const SocialMedia = styled.div`
   display: flex;
   justify-content: space-around;
 `
-
 
 const SocialLink = styled(Link)`
   color: #fff;

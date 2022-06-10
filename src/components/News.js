@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react'
-import { Link } from 'gatsby'
-import styled from 'styled-components'
-import { Carousel } from 'react-responsive-carousel'
-import { InView } from 'react-intersection-observer'
-import { useSpring, animated } from 'react-spring'
-import Bar from './Bar'
+import React, { useState, useRef } from "react"
+import { Link } from "gatsby"
+import styled from "styled-components"
+import { Carousel } from "react-responsive-carousel"
+import { InView } from "react-intersection-observer"
+import { useSpring, animated } from "react-spring"
+import Bar from "./Bar"
 
 const News = () => {
   const newsInputRef = useRef()
@@ -12,16 +12,16 @@ const News = () => {
 
   const animations = {
     h3: useSpring({
-        transform: displayed ? 'translate(0)' : 'translate(500px)',
-        opacity: displayed ? 1 : 0
+      transform: displayed ? "translate(0)" : "translate(500px)",
+      opacity: displayed ? 1 : 0,
     }),
     h1: useSpring({
-        transform: displayed ? 'translate(0)' : 'translate(-500px)',
-        opacity: displayed ? 1 : 0
+      transform: displayed ? "translate(0)" : "translate(-500px)",
+      opacity: displayed ? 1 : 0,
     }),
-    bar: useSpring({ 
-      transform: displayed ? 'translate(0)' : 'translate(500px)',
-      opacity: displayed ? 1 : 0
+    bar: useSpring({
+      transform: displayed ? "translate(0)" : "translate(500px)",
+      opacity: displayed ? 1 : 0,
     }),
   }
 
@@ -29,53 +29,94 @@ const News = () => {
     <Container>
       <LatestNews>
         <div className="margin">
-          <InView as="div" onChange={(inView, entry) => {
-              if(inView) {
-                  setDisplayed(true)
+          <InView
+            as="div"
+            onChange={(inView) => {
+              if (inView) {
+                setDisplayed(true)
               }
             }}
           >
             <animated.h3 style={animations.h3}>latest news</animated.h3>
-            <animated.h1 style={animations.h1}>top insights on the current industry</animated.h1>
+            <animated.h1 style={animations.h1}>
+              top insights on the current industry
+            </animated.h1>
             <Bar style={animations.bar} />
           </InView>
-          
-          <NewsCarousel 
+
+          <NewsCarousel
             infiniteLoop
             showArrows={false}
             emulateTouch
             showStatus={false}
           >
-           <div>
-              <Title to="/"><h2>sustainable building design</h2></Title> 
+            <div>
+              <Title to="/">
+                <h2>sustainable building design</h2>
+              </Title>
               <p>Posted by admin July 4,2018</p>
-              <p>The main objectives of sustainable design are to reduce, or completely avoid, depletion of critical resources like energy, water, land, and raw materials; prevent environmental degradation caused by facilities and infrastructure throughout their life cycle, and create build environments that...</p>
-           </div>
-           <div>
-              <Title to="/"><h2>groundbreaking women in construction</h2></Title>
+              <p>
+                The main objectives of sustainable design are to reduce, or
+                completely avoid, depletion of critical resources like energy,
+                water, land, and raw materials; prevent environmental
+                degradation caused by facilities and infrastructure throughout
+                their life cycle, and create build environments that...
+              </p>
+            </div>
+            <div>
+              <Title to="/">
+                <h2>groundbreaking women in construction</h2>
+              </Title>
               <p>Posted by admin July 4,2018</p>
-              <p>Like many older U.S. cities, our nation's capital infrastructure dates back to the early 1800s and their storm and wasewater treatment system is no longer able to accomodate heavy rain events, vausing overflows of untreated waste into nearby rivers and...</p>
-           </div>
-           <div>
-              <Title to="/"><h2>modern extension to brick house</h2></Title>
+              <p>
+                Like many older U.S. cities, our nation's capital infrastructure
+                dates back to the early 1800s and their storm and wasewater
+                treatment system is no longer able to accomodate heavy rain
+                events, vausing overflows of untreated waste into nearby rivers
+                and...
+              </p>
+            </div>
+            <div>
+              <Title to="/">
+                <h2>modern extension to brick house</h2>
+              </Title>
               <p>Posted by admin July 4,2018</p>
-              <p>The $2.5 million two-story 4,000-square-foot, addition to the existing hospital will provide expanded Interventional Radiology services on the second floor with a new interventional imaging room as well as associated control, patient holding, exam, storage and system electronics spaces. Work...</p>
-           </div>
-           <div>
-              <Title to="/"><h2>fitting a square building</h2></Title>
+              <p>
+                The $2.5 million two-story 4,000-square-foot, addition to the
+                existing hospital will provide expanded Interventional Radiology
+                services on the second floor with a new interventional imaging
+                room as well as associated control, patient holding, exam,
+                storage and system electronics spaces. Work...
+              </p>
+            </div>
+            <div>
+              <Title to="/">
+                <h2>fitting a square building</h2>
+              </Title>
               <p>Posted by admin July 4,2018</p>
-              <p>Four-hundred women from construction companies around the country gathered for this incredible two-day event in San Francisco, California, The main theme of the conference was the importance of diversity and inclusion to a company's success. Event speakers focused on the financial...</p>
-           </div>
+              <p>
+                Four-hundred women from construction companies around the
+                country gathered for this incredible two-day event in San
+                Francisco, California, The main theme of the conference was the
+                importance of diversity and inclusion to a company's success.
+                Event speakers focused on the financial...
+              </p>
+            </div>
           </NewsCarousel>
         </div>
-        
       </LatestNews>
       <Newsletter>
         <NewsletterForm>
           <h3>subscribe</h3>
           <h1>join our newsletter</h1>
-          <p>Good news & event details as well straight to your incoming mail!</p>
-          <NewsletterInput ref={newsInputRef} onBlur={() => newsInputRef.current.setSelectionRange(5, 5)} placeholder="Enter Your E-mail" />
+          <p>
+            Good news & event details as well straight to your incoming mail!
+          </p>
+          <NewsletterInput
+            ref={newsInputRef}
+            onBlur={() => newsInputRef.current.setSelectionRange(5, 5)}
+            placeholder="Enter Your E-mail"
+          />
         </NewsletterForm>
       </Newsletter>
     </Container>
@@ -94,7 +135,9 @@ const LatestNews = styled.div`
     margin-left: 25%;
     padding: 100px 0 100px 0;
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       text-transform: uppercase;
       transition: all 1s ease-in-out;
     }
@@ -117,7 +160,7 @@ const LatestNews = styled.div`
   }
 `
 
-const NewsCarousel = styled(Carousel)`  
+const NewsCarousel = styled(Carousel)`
   div {
     text-align: left;
     padding-bottom: 10px;
@@ -146,11 +189,13 @@ const NewsletterForm = styled.form`
   margin: auto;
   padding: 100px 0 130px 0;
 
-  h3, h1 {
+  h3,
+  h1 {
     text-transform: uppercase;
   }
 
-  h3, p {
+  h3,
+  p {
     font-family: "Montserrat", Sans-serif;
     font-weight: lighter;
   }
@@ -167,12 +212,12 @@ const NewsletterInput = styled.input`
   border: 1px solid white;
   padding-left: 15px;
 
-  &, &::placeholder {
+  &,
+  &::placeholder {
     font-family: "Montserrat", Sans-serif;
     color: #fff;
     font-size: 1rem;
   }
-
 `
 
 const Container = styled.div`
@@ -190,8 +235,11 @@ const Container = styled.div`
       div {
         margin-left: 0;
         width: 100%;
-        
-        h1, h2, h3, p {
+
+        h1,
+        h2,
+        h3,
+        p {
           padding: 0 15px;
         }
 
@@ -203,10 +251,9 @@ const Container = styled.div`
 
     ${Newsletter} {
       width: 100%;
-      
+
       ${NewsletterForm} {
         width: 95%;
-        
       }
 
       ${NewsletterInput} {

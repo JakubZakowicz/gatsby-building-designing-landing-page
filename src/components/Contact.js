@@ -1,42 +1,43 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'gatsby'
-import { 
-  FaFacebookF, 
-  FaTwitter, 
-  FaGooglePlusG, 
-  FaVimeoV, 
+import React from "react"
+import styled from "styled-components"
+import { Link } from "gatsby"
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaGooglePlusG,
+  FaVimeoV,
   FaYoutube,
-  FaPinterest
-} from 'react-icons/fa'
-import { InView } from 'react-intersection-observer'
-import { useSpring, animated } from 'react-spring'
-import Bar from './Bar'
+  FaPinterest,
+} from "react-icons/fa"
+import { InView } from "react-intersection-observer"
+import { useSpring, animated } from "react-spring"
+import Bar from "./Bar"
 
 const Contact = () => {
-
   const [displayed, setDisplayed] = React.useState(false)
 
   const animations = {
     h3: useSpring({
-        transform: displayed ? 'translate(0)' : 'translate(300px)',
-        opacity: displayed ? 1 : 0
+      transform: displayed ? "translate(0)" : "translate(300px)",
+      opacity: displayed ? 1 : 0,
     }),
     h1: useSpring({
-        transform: displayed ? 'translate(0)' : 'translate(-300px)',
-        opacity: displayed ? 1 : 0
+      transform: displayed ? "translate(0)" : "translate(-300px)",
+      opacity: displayed ? 1 : 0,
     }),
-    bar: useSpring({ 
-      transform: displayed ? 'translate(0)' : 'translate(200px)',
-      opacity: displayed ? 1 : 0
+    bar: useSpring({
+      transform: displayed ? "translate(0)" : "translate(200px)",
+      opacity: displayed ? 1 : 0,
     }),
   }
 
   return (
     <Container>
-      <InView as="div" onChange={(inView, entry) => {
-          if(inView) {
-              setDisplayed(true)
+      <InView
+        as="div"
+        onChange={(inView) => {
+          if (inView) {
+            setDisplayed(true)
           }
         }}
       >
@@ -44,27 +45,42 @@ const Contact = () => {
         <animated.h1 style={animations.h1}>contact details</animated.h1>
         <Bar style={animations.bar} />
       </InView>
-      
       <div className="flex">
         <div>
           <p>
-            Phone: <ContactLink to="/">(555) 123-4567</ContactLink><br/>
-            E-mail: <ContactLink>info@demolink.org</ContactLink><br/>
-            Address: Alexandria, 32 Washington str, 22303<br/>
-            Opening hours:<br/>
-            Monday - Thoursday 10:00 - 23.00<br/>
+            Phone: <ContactLink to="/">(555) 123-4567</ContactLink>
+            <br />
+            E-mail: <ContactLink>info@demolink.org</ContactLink>
+            <br />
+            Address: Alexandria, 32 Washington str, 22303
+            <br />
+            Opening hours:
+            <br />
+            Monday - Thoursday 10:00 - 23.00
+            <br />
             Friday - Sunday 10:00 - 19:00
           </p>
           <SocialMedia>
-            <SocialLink to="/"><FaFacebookF /></SocialLink>
-            <SocialLink to="/"><FaTwitter /></SocialLink>
-            <SocialLink to="/"><FaGooglePlusG /></SocialLink>
-            <SocialLink to="/"><FaVimeoV /></SocialLink>
-            <SocialLink to="/"><FaYoutube /></SocialLink>
-            <SocialLink to="/"><FaPinterest /></SocialLink>
+            <SocialLink to="/">
+              <FaFacebookF />
+            </SocialLink>
+            <SocialLink to="/">
+              <FaTwitter />
+            </SocialLink>
+            <SocialLink to="/">
+              <FaGooglePlusG />
+            </SocialLink>
+            <SocialLink to="/">
+              <FaVimeoV />
+            </SocialLink>
+            <SocialLink to="/">
+              <FaYoutube />
+            </SocialLink>
+            <SocialLink to="/">
+              <FaPinterest />
+            </SocialLink>
           </SocialMedia>
         </div>
-        
         <ContactForm>
           <input type="text" placeholder="Your Name" />
           <input type="text" placeholder="Your E-mail" />
@@ -83,15 +99,16 @@ const ContactForm = styled.form`
   flex-direction: column;
   width: 60%;
 
-  input, textarea {
-    background: rgba(0, 0, 0, .05);
+  input,
+  textarea {
+    background: rgba(0, 0, 0, 0.05);
     margin-top: 20px;
     border: none;
     padding-left: 10px;
     font-size: 16px;
   }
 
-  input::placeholder, 
+  input::placeholder,
   textarea::placeholder {
     font-family: "Montserrat", Sans-serif;
     font-size: 16px;
@@ -120,8 +137,8 @@ const ContactForm = styled.form`
     width: 160px;
 
     &:hover {
-        background: #e18f2f;
-        color: #fff;
+      background: #e18f2f;
+      color: #fff;
     }
   }
 `
@@ -164,7 +181,8 @@ const Container = styled.div`
     font-size: 15px;
   }
 
-  h1, h3 {
+  h1,
+  h3 {
     text-transform: uppercase;
     transition: all 1s ease-in-out;
   }
@@ -189,7 +207,9 @@ const Container = styled.div`
       margin-top: 45px;
     }
 
-     h3, h1, .flex {
+    h3,
+    h1,
+    .flex {
       padding: 0 20px;
     }
 
@@ -204,6 +224,5 @@ const Container = styled.div`
         margin-bottom: 100px;
       }
     }
-
   }
 `
