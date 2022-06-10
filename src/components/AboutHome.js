@@ -7,6 +7,7 @@ import Services from "./Services"
 import Testimonials from "./Testimonials"
 import Advantages from "./Advantages"
 import Bar from "./Bar"
+import { checkInView } from "../utils/checkInView"
 
 const AboutHome = () => {
   const [displayed, setDisplayed] = useState(false)
@@ -33,11 +34,7 @@ const AboutHome = () => {
           <InView
             as="div"
             style={{ position: "relative" }}
-            onChange={(inView) => {
-              if (inView) {
-                setDisplayed(true)
-              }
-            }}
+            onChange={(inView) => checkInView(inView, setDisplayed)}
           >
             <animated.h4 style={animations.titleH4}>about company</animated.h4>
             <animated.h2 style={animations.titleH2}>

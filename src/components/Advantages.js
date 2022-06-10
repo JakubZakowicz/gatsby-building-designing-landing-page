@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import { useSpring, animated } from "react-spring"
 import { InView } from "react-intersection-observer"
+
 import Bar from "./Bar"
+import { checkInView } from "../utils/checkInView"
 
 function Advantages() {
-  const [displayed, setDisplayed] = React.useState(false)
+  const [displayed, setDisplayed] = useState(false)
 
   const animations = {
     h1: useSpring({
@@ -28,11 +30,7 @@ function Advantages() {
         <InView
           as="div"
           style={{ position: "relative" }}
-          onChange={(inView) => {
-            if (inView) {
-              setDisplayed(true)
-            }
-          }}
+          onChange={(inView) => checkInView(inView, setDisplayed)}
         >
           <animated.h2 style={animations.h2}>advantages</animated.h2>
           <animated.h1 style={animations.h1}>

@@ -5,7 +5,9 @@ import Modal from "react-modal"
 import { Carousel } from "react-responsive-carousel"
 import { InView } from "react-intersection-observer"
 import { useSpring, animated } from "react-spring"
+
 import Bar from "./Bar"
+import { checkInView } from "../utils/checkInView"
 
 const modalStyle = {
   overlay: {
@@ -73,11 +75,7 @@ const Portfolio = () => {
         <InView
           as="div"
           style={{ position: "relative" }}
-          onChange={(inView) => {
-            if (inView) {
-              setDisplayed(true)
-            }
-          }}
+          onChange={(inView) => checkInView(inView, setDisplayed)}
         >
           <animated.h5 style={animations.h5}>Portfolio</animated.h5>
           <animated.h1 style={animations.h1}>our latest projects</animated.h1>

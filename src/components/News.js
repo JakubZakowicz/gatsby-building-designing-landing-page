@@ -4,7 +4,9 @@ import styled from "styled-components"
 import { Carousel } from "react-responsive-carousel"
 import { InView } from "react-intersection-observer"
 import { useSpring, animated } from "react-spring"
+
 import Bar from "./Bar"
+import { checkInView } from "../utils/checkInView"
 
 const News = () => {
   const newsInputRef = useRef()
@@ -31,11 +33,7 @@ const News = () => {
         <div className="margin">
           <InView
             as="div"
-            onChange={(inView) => {
-              if (inView) {
-                setDisplayed(true)
-              }
-            }}
+            onChange={(inView) => checkInView(inView, setDisplayed)}
           >
             <animated.h3 style={animations.h3}>latest news</animated.h3>
             <animated.h1 style={animations.h1}>

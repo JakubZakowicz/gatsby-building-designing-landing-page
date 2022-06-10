@@ -3,7 +3,9 @@ import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import { InView } from "react-intersection-observer"
 import { useSpring, animated } from "react-spring"
+
 import Bar from "./Bar"
+import { checkInView } from "../utils/checkInView"
 
 const Partners = () => {
   const { homeBrands } = useStaticQuery(graphql`
@@ -46,11 +48,7 @@ const Partners = () => {
       <Title>
         <InView
           as="div"
-          onChange={(inView) => {
-            if (inView) {
-              setDisplayed(true)
-            }
-          }}
+          onChange={(inView) => checkInView(inView, setDisplayed)}
         >
           <animated.h4 style={animations.h4}>Partners</animated.h4>
           <animated.h1 style={animations.h1}>

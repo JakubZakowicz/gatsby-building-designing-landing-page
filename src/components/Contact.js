@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 import {
@@ -11,10 +11,12 @@ import {
 } from "react-icons/fa"
 import { InView } from "react-intersection-observer"
 import { useSpring, animated } from "react-spring"
+
 import Bar from "./Bar"
+import { checkInView } from "../utils/checkInView"
 
 const Contact = () => {
-  const [displayed, setDisplayed] = React.useState(false)
+  const [displayed, setDisplayed] = useState(false)
 
   const animations = {
     h3: useSpring({
@@ -35,11 +37,7 @@ const Contact = () => {
     <Container>
       <InView
         as="div"
-        onChange={(inView) => {
-          if (inView) {
-            setDisplayed(true)
-          }
-        }}
+        onChange={(inView) => checkInView(inView, setDisplayed)}
       >
         <animated.h3 style={animations.h3}>let's get in touch</animated.h3>
         <animated.h1 style={animations.h1}>contact details</animated.h1>
