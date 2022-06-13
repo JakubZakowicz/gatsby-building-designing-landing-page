@@ -7,24 +7,16 @@ import { useSpring, animated } from "react-spring"
 
 import Bar from "./Bar"
 import { checkInView } from "../utils/checkInView"
+import { animate } from '../utils/animate'
 
 const News = () => {
   const newsInputRef = useRef()
   const [displayed, setDisplayed] = useState(false)
 
   const animations = {
-    h3: useSpring({
-      transform: displayed ? "translate(0)" : "translate(500px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    h1: useSpring({
-      transform: displayed ? "translate(0)" : "translate(-500px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    bar: useSpring({
-      transform: displayed ? "translate(0)" : "translate(500px)",
-      opacity: displayed ? 1 : 0,
-    }),
+    h3: useSpring(animate(displayed, 500)),
+    h1: useSpring(animate(displayed, -500)),
+    bar: useSpring(animate(displayed, 500)),
   }
 
   return (

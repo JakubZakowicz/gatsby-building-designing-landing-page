@@ -5,23 +5,15 @@ import { InView } from "react-intersection-observer"
 
 import Bar from "./Bar"
 import { checkInView } from "../utils/checkInView"
+import { animate } from '../utils/animate'
 
 function Advantages() {
   const [displayed, setDisplayed] = useState(false)
 
   const animations = {
-    h1: useSpring({
-      transform: displayed ? "translate(0)" : "translate(-600px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    h2: useSpring({
-      transform: displayed ? "translate(0)" : "translate(600px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    bar: useSpring({
-      transform: displayed ? "translate(0)" : "translate(600px)",
-      opacity: displayed ? 1 : 0,
-    }),
+    h1: useSpring(animate(displayed, -600)),
+    h2: useSpring(animate(displayed, 600)),
+    bar: useSpring(animate(displayed, 600)),
   }
 
   return (

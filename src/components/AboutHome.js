@@ -8,23 +8,15 @@ import Testimonials from "./Testimonials"
 import Advantages from "./Advantages"
 import Bar from "./Bar"
 import { checkInView } from "../utils/checkInView"
+import { animate } from '../utils/animate'
 
 const AboutHome = () => {
   const [displayed, setDisplayed] = useState(false)
 
   const animations = {
-    titleH4: useSpring({
-      transform: displayed ? "translate(0)" : "translate(300px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    titleH2: useSpring({
-      transform: displayed ? "translate(0)" : "translate(-300px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    bar: useSpring({
-      transform: displayed ? "translate(0)" : "translate(200px)",
-      opacity: displayed ? 1 : 0,
-    }),
+    titleH4: useSpring(animate(displayed, 300)),
+    titleH2: useSpring(animate(displayed, -300)),
+    bar: useSpring(animate(displayed, 200)),
   }
 
   return (
@@ -34,7 +26,7 @@ const AboutHome = () => {
           <InView
             as="div"
             style={{ position: "relative" }}
-            onChange={(inView) => checkInView(inView, setDisplayed)}
+            onChange={inView => checkInView(inView, setDisplayed)}
           >
             <animated.h4 style={animations.titleH4}>about company</animated.h4>
             <animated.h2 style={animations.titleH2}>

@@ -102,6 +102,7 @@ const TestimonialCarousel = styled(Carousel)`
   div {
     width: 50%;
     margin-left: 100px;
+    padding: 10px 0
   }
 
   p {

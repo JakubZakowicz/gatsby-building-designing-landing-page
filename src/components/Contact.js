@@ -14,23 +14,15 @@ import { useSpring, animated } from "react-spring"
 
 import Bar from "./Bar"
 import { checkInView } from "../utils/checkInView"
+import { animate } from '../utils/animate'
 
 const Contact = () => {
   const [displayed, setDisplayed] = useState(false)
 
   const animations = {
-    h3: useSpring({
-      transform: displayed ? "translate(0)" : "translate(300px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    h1: useSpring({
-      transform: displayed ? "translate(0)" : "translate(-300px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    bar: useSpring({
-      transform: displayed ? "translate(0)" : "translate(200px)",
-      opacity: displayed ? 1 : 0,
-    }),
+    h3: useSpring(animate(displayed, 300)),
+    h1: useSpring(animate(displayed, -300)),
+    bar: useSpring(animate(displayed, 200)),
   }
 
   return (

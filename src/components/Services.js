@@ -60,7 +60,7 @@ function Services() {
   return (
     <ServicesContainer>
       {serviceImages.map((serviceImage, index) => (
-        <animated.div style={animations[index]}>
+        <animated.div key={index} style={animations[index]}>
           <Service image={getImage(serviceImage)}>
             <ServiceLink to="/about">{serviceLinks[index]}</ServiceLink>
           </Service>

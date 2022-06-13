@@ -8,6 +8,7 @@ import { useSpring, animated } from "react-spring"
 
 import Bar from "./Bar"
 import { checkInView } from "../utils/checkInView"
+import { animate } from '../utils/animate'
 
 const modalStyle = {
   overlay: {
@@ -55,18 +56,9 @@ const Portfolio = () => {
   const [displayed, setDisplayed] = useState(false)
 
   const animations = {
-    h5: useSpring({
-      transform: displayed ? "translate(0)" : "translate(300px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    h1: useSpring({
-      transform: displayed ? "translate(0)" : "translate(-300px)",
-      opacity: displayed ? 1 : 0,
-    }),
-    bar: useSpring({
-      transform: displayed ? "translate(0)" : "translate(200px)",
-      opacity: displayed ? 1 : 0,
-    }),
+    h5: useSpring(animate(displayed, 300)),
+    h1: useSpring(animate(displayed, -300)),
+    bar: useSpring(animate(displayed, 200)),
   }
 
   return (
@@ -91,12 +83,12 @@ const Portfolio = () => {
       </PortfolioContainer>
       <Projects>
         {portfolioImgs.nodes.map((portfolioImg, index) => (
-          <Project>
+          <Project key={index}>
             <img
               src={
                 portfolioImg.childImageSharp.gatsbyImageData.images.fallback.src
               }
-              alt=""
+              alt={portfolioData.nodes[index].title}
             />
             <ImageBg onClick={() => setIsModal(true)}>
               <div>
@@ -121,8 +113,8 @@ const Portfolio = () => {
           showStatus={false}
           showIndicators={false}
         >
-          {portfolioImgs.nodes.map((portfolioImg) => (
-            <div>
+          {portfolioImgs.nodes.map((portfolioImg, index) => (
+            <div key={index}>
               <img
                 src={
                   portfolioImg.childImageSharp.gatsbyImageData.images.fallback

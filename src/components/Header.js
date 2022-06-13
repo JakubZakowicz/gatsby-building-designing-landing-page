@@ -58,7 +58,7 @@ const Header = () => {
       }
     >
       {pluginImages.map((pluginImage, index) => (
-        <Heading image={getImage(pluginImage)}>
+        <Heading key={index} image={getImage(pluginImage)}>
           <Title>
             <Show>
               <h1>{headerTitles[index].node.title}</h1>
