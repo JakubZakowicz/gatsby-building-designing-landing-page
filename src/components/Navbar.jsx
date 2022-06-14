@@ -11,6 +11,7 @@ import {
   MenuBars,
 } from "../styles/navbarStyles"
 import { useGetLogoImage } from "../queries/logoImageQuery"
+import { navbarModalStyles } from "../styles/modalStyles"
 
 const Navbar = () => {
   const data = useGetLogoImage()
@@ -53,20 +54,11 @@ const Navbar = () => {
       </MenuBars>
       <Modal
         isOpen={navLinks}
-        style={modalStyle}
+        style={navbarModalStyles}
         onRequestClose={toggleModal}
       ></Modal>
     </Nav>
   )
-}
-
-const modalStyle = {
-  overlay: {
-    background: "rgba(0, 0, 0, 0.5)",
-  },
-  content: {
-    display: "none",
-  },
 }
 
 export default Navbar

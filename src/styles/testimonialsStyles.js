@@ -42,17 +42,17 @@ export const TestimonialCarousel = styled(Carousel)`
     margin-left: 100px;
     padding: 10px 0;
   }
+`
 
-  p {
-    font-family: "Montserrat", Sans-serif;
+export const Testimonial = styled.p`
+font-family: "Montserrat", Sans-serif;
     font-weight: lighter;
     font-size: 1.3rem;
     line-height: 30px;
     text-align: left;
-  }
 `
 
-export const Author = styled.div`
+export const Author = styled.p`
     text-transform: uppercase;
     text-align: left;
 `

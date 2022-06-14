@@ -7,6 +7,7 @@ import {
   OrangeBg,
   TestimonialCarousel,
   Author,
+  Testimonial
 } from "../styles/testimonialsStyles"
 import { useGetTestimonials } from "../queries/testimonialsQuery"
 
@@ -28,7 +29,7 @@ const Testimonials = () => {
           >
             {testimonialsData.nodes.map(testimonial => (
               <div key={testimonial.id}>
-                <p>{testimonial.testimonial}</p>
+                <Testimonial>{testimonial.testimonial}</Testimonial>
                 <Author>
                   <strong>{testimonial.author}</strong>, posted on{" "}
                   {testimonial.place}
