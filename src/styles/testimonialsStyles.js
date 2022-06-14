@@ -50,9 +50,9 @@ export const TestimonialCarousel = styled(Carousel)`
     line-height: 30px;
     text-align: left;
   }
+`
 
-  h3 {
+export const Author = styled.div`
     text-transform: uppercase;
     text-align: left;
-  }
 `

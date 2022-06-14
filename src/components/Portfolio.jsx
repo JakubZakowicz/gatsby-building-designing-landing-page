@@ -1,6 +1,4 @@
 import React, { useState } from "react"
-
-import { useStaticQuery, graphql } from "gatsby"
 import Modal from "react-modal"
 import { InView } from "react-intersection-observer"
 import { useSpring, animated } from "react-spring"
@@ -16,6 +14,7 @@ import {
   ViewBtn,
   ModalCarousel,
 } from "../styles/portfolioStyles"
+import { useGetPortfolioData } from "../queries/portfolioDataQuery"
 
 const modalStyle = {
   overlay: {
@@ -36,29 +35,7 @@ const modalStyle = {
 }
 
 const Portfolio = () => {
-  const { portfolioImgs, portfolioData } = useStaticQuery(graphql`
-    query MyQuery {
-      portfolioImgs: allFile(
-        filter: {
-          relativePath: { regex: "/portfolio/" }
-          sourceInstanceName: { eq: "images" }
-        }
-        sort: { fields: relativePath, order: ASC }
-      ) {
-        nodes {
-          childImageSharp {
-            gatsbyImageData
-          }
-        }
-      }
-      portfolioData: allPortfolioDataJson {
-        nodes {
-          title
-          desc
-        }
-      }
-    }
-  `)
+  const { portfolioImgs, portfolioData } = useGetPortfolioData()
   const [isModal, setIsModal] = useState(false)
   const [displayed, setDisplayed] = useState(false)
 

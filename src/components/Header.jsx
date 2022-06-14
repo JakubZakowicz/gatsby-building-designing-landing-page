@@ -2,35 +2,13 @@ import React from "react"
 
 import { GoChevronLeft, GoChevronRight } from "react-icons/go"
 import { Carousel } from "react-responsive-carousel"
-
-import { graphql, useStaticQuery } from "gatsby"
 import { getImage } from "gatsby-plugin-image"
 
 import { Heading, Title, Show, Arrow } from "../styles/headerStyles"
+import { useGetHeaderData } from "../queries/headerDataQuery"
 
 const Header = () => {
-  const { backgroundImages, titles } = useStaticQuery(graphql`
-    query BackgroundImageQuery {
-      backgroundImages: allFile(
-        filter: { relativePath: { regex: "/header-background/" } }
-        sort: { fields: relativePath, order: ASC }
-      ) {
-        nodes {
-          childImageSharp {
-            gatsbyImageData
-          }
-        }
-      }
-      titles: allHeaderDataJson {
-        edges {
-          node {
-            title
-            subtitle
-          }
-        }
-      }
-    }
-  `)
+  const { backgroundImages, titles } = useGetHeaderData()
 
   const pluginImages = backgroundImages.nodes
   const headerTitles = titles.edges

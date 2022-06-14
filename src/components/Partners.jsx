@@ -1,5 +1,4 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import React, { useState } from "react"
 import { InView } from "react-intersection-observer"
 import { useSpring, animated } from "react-spring"
 
@@ -7,27 +6,11 @@ import Bar from "./Bar"
 import { checkInView } from "../utils/checkInView"
 import { animate } from "../utils/animate"
 import { Container, Title, Brands } from "../styles/partnersStyles"
+import { useGetHomeBrands } from "../queries/homeBrandsQuery"
 
 const Partners = () => {
-  const { homeBrands } = useStaticQuery(graphql`
-    query HomeBrands {
-      homeBrands: allFile(
-        filter: {
-          relativePath: { regex: "/home-brands/" }
-          sourceInstanceName: { eq: "images" }
-        }
-        sort: { fields: relativePath, order: ASC }
-      ) {
-        nodes {
-          childImageSharp {
-            gatsbyImageData
-          }
-        }
-      }
-    }
-  `)
-
-  const [displayed, setDisplayed] = React.useState(false)
+  const { homeBrands } = useGetHomeBrands()
+  const [displayed, setDisplayed] = useState(false)
 
   const animations = {
     h4: useSpring(animate(displayed, 300)),

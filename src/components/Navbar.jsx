@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useStaticQuery, graphql, Link } from "gatsby"
+import { Link } from "gatsby"
 import { GoThreeBars } from "react-icons/go"
 import Modal from "react-modal"
 
@@ -10,21 +10,10 @@ import {
   Logo,
   MenuBars,
 } from "../styles/navbarStyles"
+import { useGetLogoImage } from "../queries/logoImageQuery"
 
 const Navbar = () => {
-  const data = useStaticQuery(graphql`
-    query LogoImageQuery {
-      file(relativePath: { eq: "header-logo.png" }) {
-        id
-        childImageSharp {
-          fluid {
-            src
-          }
-        }
-      }
-    }
-  `)
-
+  const data = useGetLogoImage()
   const [navLinks, setNavLinks] = useState(false)
 
   const toggleModal = () => {

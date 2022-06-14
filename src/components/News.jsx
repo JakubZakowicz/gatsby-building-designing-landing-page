@@ -7,6 +7,7 @@ import Bar from "./Bar"
 import { checkInView } from "../utils/checkInView"
 import { animate } from "../utils/animate"
 
+
 import {
   Container,
   Title,
@@ -16,10 +17,13 @@ import {
   NewsletterForm,
   NewsletterInput,
 } from "../styles/newsStyles"
+import { useGetNews } from "../queries/newsQuery"
 
 const News = () => {
   const newsInputRef = useRef()
   const [displayed, setDisplayed] = useState(false)
+
+  const { news } = useGetNews()
 
   const animations = {
     h3: useSpring(animate(displayed, 500)),
@@ -48,58 +52,17 @@ const News = () => {
             emulateTouch
             showStatus={false}
           >
-            <div>
-              <Title to="/">
-                <h2>sustainable building design</h2>
-              </Title>
-              <p>Posted by admin July 4,2018</p>
-              <p>
-                The main objectives of sustainable design are to reduce, or
-                completely avoid, depletion of critical resources like energy,
-                water, land, and raw materials; prevent environmental
-                degradation caused by facilities and infrastructure throughout
-                their life cycle, and create build environments that...
-              </p>
-            </div>
-            <div>
-              <Title to="/">
-                <h2>groundbreaking women in construction</h2>
-              </Title>
-              <p>Posted by admin July 4,2018</p>
-              <p>
-                Like many older U.S. cities, our nation's capital infrastructure
-                dates back to the early 1800s and their storm and wasewater
-                treatment system is no longer able to accomodate heavy rain
-                events, vausing overflows of untreated waste into nearby rivers
-                and...
-              </p>
-            </div>
-            <div>
-              <Title to="/">
-                <h2>modern extension to brick house</h2>
-              </Title>
-              <p>Posted by admin July 4,2018</p>
-              <p>
-                The $2.5 million two-story 4,000-square-foot, addition to the
-                existing hospital will provide expanded Interventional Radiology
-                services on the second floor with a new interventional imaging
-                room as well as associated control, patient holding, exam,
-                storage and system electronics spaces. Work...
-              </p>
-            </div>
-            <div>
-              <Title to="/">
-                <h2>fitting a square building</h2>
-              </Title>
-              <p>Posted by admin July 4,2018</p>
-              <p>
-                Four-hundred women from construction companies around the
-                country gathered for this incredible two-day event in San
-                Francisco, California, The main theme of the conference was the
-                importance of diversity and inclusion to a company's success.
-                Event speakers focused on the financial...
-              </p>
-            </div>
+            {news.nodes.map(singleNews => (
+              <div key={singleNews.id}>
+                <Title to="/">
+                  <h2>{singleNews.title}</h2>
+                </Title>
+                <p>
+                  Posted by {singleNews.author} {singleNews.createdAt}
+                </p>
+                <p>{singleNews.description}</p>
+              </div>
+            ))}
           </NewsCarousel>
         </div>
       </LatestNews>
