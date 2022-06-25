@@ -6,9 +6,11 @@ import Portfolio from "../components/Portfolio"
 import Partners from "../components/Partners"
 import News from "../components/News"
 import Contact from "../components/Contact"
+import Seo from "../components/seo"
 
 const IndexPage = () => (
   <Layout>
+    <Seo title="Home Page" />
     <Header />
     <AboutHome />
     <Portfolio />
